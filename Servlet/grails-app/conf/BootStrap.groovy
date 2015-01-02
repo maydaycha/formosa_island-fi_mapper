@@ -4,4 +4,11 @@ class BootStrap {
     }
     def destroy = {
     }
+
+
+    Class fetchedClass = Class.forName(
+            "com.intel.core.Mapper",
+            true,
+            Thread.currentThread().getContextClassLoader()
+    )
 }

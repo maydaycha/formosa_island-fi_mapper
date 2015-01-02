@@ -345,7 +345,7 @@
 	<tag>
 		<description>URL tag based on the JSTL c:url tag.  This variant is fully 
 		backwards compatible with the standard tag.  Enhancements include support 
-		for URL template parameters.</description>
+		for URL template com.intel.core.parameters.</description>
 		<name>url</name>
 		<tag-class>org.springframework.web.servlet.tags.UrlTag</tag-class>
 		<body-content>JSP</body-content>

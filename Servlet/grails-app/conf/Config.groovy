@@ -77,7 +77,7 @@ grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
 grails.web.disable.multipart=false
 
-// request parameters to mask when logging exceptions
+// request com.intel.core.parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
 
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
@@ -96,7 +96,7 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
-       // grails.serverURL = "http://125.227.178.210:8080/Mapper-Servlet"
+       // grails.serverURL = "http://125.227.178.210:8080/com.intel.core.com.intel.core.Mapper-Servlet"
     }
 }
 

@@ -507,7 +507,7 @@ Scope for var.
 
   <tag>
     <description>
-        Creates a URL with optional query parameters.
+        Creates a URL with optional query com.intel.core.parameters.
     </description>
     <name>url</name>
     <tag-class>org.apache.taglibs.standard.tag.rt.core.UrlTag</tag-class>

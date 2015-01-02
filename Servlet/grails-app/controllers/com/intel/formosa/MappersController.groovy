@@ -1,5 +1,6 @@
 package com.intel.formosa
 
+import com.intel.core.Mapper
 import grails.converters.JSON
 
 class MappersController {
@@ -19,9 +20,12 @@ class MappersController {
     def save () {
         def jsonObject = request.JSON
 
+        Mapper mapper = new Mapper();
+        def jsonString = mapper.run();
+
         //TODO: call mapper
 
-        render jsonObject as JSON
+        render jsonString as JSON
     }
 
     def delete () {
