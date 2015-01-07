@@ -7,7 +7,7 @@ class BootStrap {
 
 
     Class fetchedClass = Class.forName(
-            "com.intel.core.Mapper",
+            "com.intel.formosa.test.Main",
             true,
             Thread.currentThread().getContextClassLoader()
     )

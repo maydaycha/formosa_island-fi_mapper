@@ -4,6 +4,8 @@ class UrlMappings {
 
 
         "/Mappers"(resources: "Mappers")
+        "/RuleEngines"(resources: "RuleEngines")
+
 
 
         "/$controller/$action?/$id?(.$format)?"{
