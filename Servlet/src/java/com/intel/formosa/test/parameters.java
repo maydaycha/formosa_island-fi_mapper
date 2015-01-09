@@ -1,10 +1,10 @@
 package com.intel.formosa.test;
 
 
-public class parameters {
-	
-	
-	public static String[] need_sensor = new String[20];
-	public static String[] have_sensor = new String[20];
-	public static Boolean is_equal = true;
+public class Parameters {
+    public String[] need_sensor = new String[20];
+    public String[] have_sensor = new String[20];
+    public String compare = "";
+    public Boolean Alarm = false;
+    public Boolean five_s_alive = true;
 }

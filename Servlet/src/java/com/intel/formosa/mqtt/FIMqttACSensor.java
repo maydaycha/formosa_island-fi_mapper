@@ -56,14 +56,16 @@ public class FIMqttACSensor extends FIMqttSource {
 	public void onFIMessageArrived(FIMessage message) {
 		if (mACSource.equals(message.id)) {
 			mValue = message.value(0.0);
-		} else {
 			sink(mValue);
+		} else {
+			//sink(mValue);
 		}
 	}
 
 	@Override
 	public <T extends Number> void sink(T number) {
-		publish(number);		
+		
+		publish(number);
 	}
 
 }

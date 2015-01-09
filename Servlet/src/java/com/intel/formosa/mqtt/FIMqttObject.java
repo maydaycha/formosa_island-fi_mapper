@@ -39,7 +39,7 @@ public abstract class FIMqttObject implements FIObject, FIMqttPublisher, MqttCal
 	}
 	
 	@Override
-	protected void finalize() {
+	public void finalize() {
 		release();
 	}
 	
