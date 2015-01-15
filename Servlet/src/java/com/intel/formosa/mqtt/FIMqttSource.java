@@ -36,6 +36,7 @@ public abstract class FIMqttSource extends FIMqttObject implements FISource {
 		try {
 			if (mMqttClient != null) {       
 		        mMqttClient.unsubscribe(mSource);
+
 			}
 		} catch (MqttException e) {
 

@@ -108,24 +108,25 @@ log4j = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
+
     appenders {
-        environments {
-            production {
-                file name:'file', file: '/usr/local/apache-tomcat-7.0.57/logs/Mapper.log'
+         file name:'production_file', file: '/usr/local/apache-tomcat-7.0.57/logs/Mapper.log'
+         file name:'development_file', file: 'target/Mapper.log', layout: pattern(conversionPattern: "[%d{HH:mm:ss:SSS}] %-5p %c{2}: %m%n")
+    }
+
+    environments {
+        production {
+            root {
+                info 'stdout', 'production_file'
+            }
+        }
+        development {
+            root {
+                info 'stdout', 'development_file'
             }
         }
     }
-    root {
-        environments {
-            production {
-                info 'stdout', 'file'
-            }
-            development {
-                info 'stdout'
-            }
-        }
 //        info 'stdout', 'file'
-    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP

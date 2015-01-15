@@ -1,6 +1,10 @@
 package com.intel.formosa.test;
 
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -28,7 +32,8 @@ public class Go implements Runnable {
     FIMqttObject WarningDevice = null;
     JSONArray jsonarray = null;
     Parameters parameters = null;
-
+    String topic = null;
+    String broker = "tcp://192.168.184.129:1883";
 
 	
 	/*
@@ -100,18 +105,22 @@ public class Go implements Runnable {
                 //System.out.println(o);
                 JSONObject object = (JSONObject) o;
                 JSONArray a = (JSONArray) object.get("wires");
+                String operator = null;
+                boolean Alarm = false;
 
                 switch(Nodes.getByName(object.get("type").toString())){
 
                     case Meter_S:
 
                         System.out.println("case Meter_S");
+                        Alarm = false;
+                        topic = "/formosa/"+(String) object.get("z")+"/finish";
 
                         powerSwitch = new FIMqttACActuator(
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/"+object.get("id"),
                                 new FIConfigParams().setParameter("ameliacreek", object.get("deviceName")),
-                                parameters,
+                                Alarm,
                                 "/formosa/"+object.get("z")+"/"+ a.get(0).toString().substring(2, a.get(0).toString().length()-2));
 
                         powerSwitch.start();
@@ -120,7 +129,6 @@ public class Go implements Runnable {
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/Looper",
                                 new FIConfigParams(),
-                                parameters,
                                 "/formosa/"+object.get("z")+"/"+object.get("id"));
                         looper.start();
                         break;
@@ -128,13 +136,14 @@ public class Go implements Runnable {
                     case IASWD_S:
 
                         System.out.println("case IASWD_S");
-                        parameters.Alarm = true;
+                        Alarm = true;
+                        topic = "/formosa/"+(String) object.get("z")+"/finish";
 
                         WarningDevice = new FIMqttACActuator(
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/"+object.get("id"),
                                 new FIConfigParams().setParameter("ameliacreek", object.get("deviceName")),
-                                parameters,
+                                Alarm,
                                 "/formosa/"+object.get("z")+"/"+ a.get(0).toString().substring(2, a.get(0).toString().length()-2));
 
                         WarningDevice.start();
@@ -143,7 +152,6 @@ public class Go implements Runnable {
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/Looper",
                                 new FIConfigParams(),
-                                parameters,
                                 "/formosa/"+object.get("z")+"/"+object.get("id"));
                         looper.start();
                         break;
@@ -151,12 +159,12 @@ public class Go implements Runnable {
                     case LessEqualThan:
 
                         System.out.println("case LessThan");
-                        parameters.compare = "LessEqualThan";
+                        operator = "LessEqualThan";
                         lessEqualThanOperator = new FIMqttLessThanOperator(
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/"+object.get("id"),
                                 new FIConfigParams(),
-                                parameters,
+                                operator,
                                 "/formosa/"+object.get("z")+"/"+ a.get(0).toString().substring(2, a.get(0).toString().length()-2),
                                 "/formosa/"+object.get("z")+"/"+ a.get(1).toString().substring(2, a.get(1).toString().length()-2));
 
@@ -166,12 +174,12 @@ public class Go implements Runnable {
                     case LessThan:
 
                         System.out.println("case LessThan");
-                        parameters.compare = "LessThan";
+                        operator = "LessThan";
                         lessThanOperator = new FIMqttLessThanOperator(
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/"+object.get("id"),
                                 new FIConfigParams(),
-                                parameters,
+                                operator,
                                 "/formosa/"+object.get("z")+"/"+ a.get(0).toString().substring(2, a.get(0).toString().length()-2),
                                 "/formosa/"+object.get("z")+"/"+ a.get(1).toString().substring(2, a.get(1).toString().length()-2));
 
@@ -181,12 +189,12 @@ public class Go implements Runnable {
                     case Equal:
 
                         System.out.println("case Equal");
-                        parameters.compare = "Equal";
+                        operator = "Equal";
                         EqualOperator = new FIMqttLessThanOperator(
                                 "tcp://192.168.184.129:1883",
                                 "/formosa/"+object.get("z")+"/"+object.get("id"),
                                 new FIConfigParams(),
-                                parameters,
+                                operator,
                                 "/formosa/"+object.get("z")+"/"+ a.get(0).toString().substring(2, a.get(0).toString().length()-2),
                                 "/formosa/"+object.get("z")+"/"+ a.get(1).toString().substring(2, a.get(1).toString().length()-2));
 
@@ -207,7 +215,7 @@ public class Go implements Runnable {
 
                     case IlluminanceMeasurement_S:
 
-                        System.out.println("case IlluminanceMeasurement_S : "+object.get("deviceName"));
+                        System.out.println("case IlluminanceMeasurement_S");
 
                         Illuminance = new FIMqttACSensor(
                                 "tcp://192.168.184.129:1883",
@@ -279,34 +287,96 @@ public class Go implements Runnable {
             looper.run();
 
             parameters.five_s_alive = true;
-            while(true){
-                if(!parameters.five_s_alive){
 
-                    if(Illuminance != null)
+            while(true) {
+//                System.out.println("[while] parameters.five_s_alive = " + parameters.five_s_alive);
+                if (!parameters.five_s_alive){
+                    System.out.println("[in while in if] parameters.five_s_alive = " + parameters.five_s_alive);
+                    if(Illuminance != null){
+                        Illuminance.stop();
                         Illuminance.finalize();
-                    if(Temperature != null)
+                        Illuminance = null;
+                    }
+                    if(Temperature != null){
+                        Temperature.stop();
                         Temperature.finalize();
-                    if(number != null)
+                        Temperature = null;
+                    }
+                    if(number != null){
+                        number.stop();
                         number.finalize();
-                    if(lessThanOperator != null)
+                        number = null;
+                    }
+                    if(lessThanOperator != null){
+                        lessThanOperator.stop();
                         lessThanOperator.finalize();
-                    if(lessEqualThanOperator != null)
+                        lessThanOperator = null;
+                    }
+                    if(lessEqualThanOperator != null){
+                        lessEqualThanOperator.stop();
                         lessEqualThanOperator.finalize();
-                    if(EqualOperator != null)
+                        lessThanOperator = null;
+                    }
+                    if(EqualOperator != null){
+                        EqualOperator.stop();
                         EqualOperator.finalize();
-                    if(powerSwitch != null)
+                        EqualOperator = null;
+                    }
+                    if(powerSwitch != null){
+                        powerSwitch.stop();
                         powerSwitch.finalize();
-                    if(WarningDevice != null)
+                        powerSwitch = null;
+                    }
+                    if(WarningDevice != null){
+                        WarningDevice.stop();
                         WarningDevice.finalize();
+                        WarningDevice = null;
+                    }
 
+                    String content  = "{123}";
+                    MqttClient mMqttClient;
+                    try {
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+
+                        MqttConnectOptions connOpts = new MqttConnectOptions();
+                        connOpts.setCleanSession(true);
+
+                        mMqttClient.connect(connOpts);
+
+                        System.out.println("finish topic: " + topic);
+                        MqttMessage message = new MqttMessage(content.getBytes());
+                        message.setQos(1);
+                        mMqttClient.publish(topic, message);
+
+                        mMqttClient.disconnect();
+                    } catch (MqttException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        System.out.println("[exception]" + e);
+                    }
+
+                    System.out.println("[Rule Engine] STOP!");
                     break;
                 }
+
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+
             }
         }
+        System.gc();
     }
 
     public void setAliveFlag(boolean alive) {
         parameters.five_s_alive = alive;
+        System.out.println("[setAliveFlag] parameters.five_s_alive = " + parameters.five_s_alive);
+    }
+
+    public boolean getAliveFlag() {
+        return parameters.five_s_alive;
     }
 
 }

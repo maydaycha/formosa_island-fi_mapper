@@ -1,3 +1,5 @@
 Mapper/.idea/*
 Mapper/Mapper.iml
 Servelt/tartget/classes/*
+Servlet/src/java/com/intel/formosa/test/Go2.java
+Servlet/.gitignore
