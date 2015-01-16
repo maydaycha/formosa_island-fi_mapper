@@ -85,13 +85,13 @@ public class Mapper {
         }
 
         if (runnableInstance.containsKey(sessionId)) {
-            Go2 g = (Go2) runnableInstance.get(sessionId);
+            Go g = (Go) runnableInstance.get(sessionId);
             g.setAliveFlag(false);
             g = null;
             runnableInstance.remove(sessionId);
         }
 
-        Go2 go = new Go2();
+        Go go = new Go(a);
         Thread t1 = new Thread(go);
         t1.start();
         runnableInstance.put(sessionId, go);
