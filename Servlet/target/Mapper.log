@@ -1,0 +1,753 @@
+[20:11:57:733] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[20:11:57:752] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[20:11:58:227] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[20:11:58:234] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[20:12:03:078] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[20:12:08:237] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[20:12:08:986] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[20:12:08:987] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[20:12:09:873] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[20:12:11:384] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@39c80876: startup date [Sun Jan 11 20:12:08 CST 2015]; parent: Root WebApplicationContext]
+[20:12:12:708] INFO  resource.ResourceProcessor: Performing a full reload
+[20:12:13:024] INFO  resource.ResourceProcessor: Loading resource declarations...
+[20:12:13:025] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[20:12:13:026] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[20:12:13:229] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[20:12:13:650] INFO  resource.ResourceProcessor: Finished full reload
+[20:12:15:328] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[20:12:15:349] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[20:12:15:354] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[20:12:15:417] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[20:12:15:696] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[20:12:15:804] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[20:14:53:767] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[20:14:53:793] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[20:14:54:098] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[20:14:54:108] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[20:14:58:424] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[20:15:03:027] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[20:15:03:779] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[20:15:03:781] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[20:15:04:731] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[20:15:06:317] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@5f8c78e: startup date [Sun Jan 11 20:15:03 CST 2015]; parent: Root WebApplicationContext]
+[20:15:07:521] INFO  resource.ResourceProcessor: Performing a full reload
+[20:15:07:727] INFO  resource.ResourceProcessor: Loading resource declarations...
+[20:15:07:727] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[20:15:07:728] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[20:15:07:821] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[20:15:08:157] INFO  resource.ResourceProcessor: Finished full reload
+[20:15:08:873] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[20:15:08:881] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[20:15:08:885] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[20:15:08:943] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[20:15:09:122] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[20:15:09:781] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[00:48:00:593] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[00:48:29:362] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[12:38:18:945] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[12:38:18:964] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[12:38:19:786] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[12:38:19:792] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[12:38:25:025] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[12:38:29:904] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[12:38:30:631] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[12:38:30:636] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[12:38:31:654] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[12:38:32:991] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@25157550: startup date [Mon Jan 12 12:38:30 CST 2015]; parent: Root WebApplicationContext]
+[12:38:34:137] INFO  resource.ResourceProcessor: Performing a full reload
+[12:38:34:323] INFO  resource.ResourceProcessor: Loading resource declarations...
+[12:38:34:323] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[12:38:34:324] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[12:38:34:473] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[12:38:34:875] INFO  resource.ResourceProcessor: Finished full reload
+[12:38:35:665] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[12:38:35:675] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[12:38:35:680] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[12:38:35:761] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[12:38:36:042] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[12:38:36:863] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:21:50:373] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[18:22:10:032] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[18:23:29:066] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:23:29:091] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:23:29:864] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:23:29:874] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:23:35:109] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[18:23:39:829] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[18:23:40:531] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[18:23:40:533] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[18:23:41:870] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[18:23:43:155] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@7a17dc90: startup date [Mon Jan 12 18:23:40 CST 2015]; parent: Root WebApplicationContext]
+[18:23:44:188] INFO  resource.ResourceProcessor: Performing a full reload
+[18:23:44:400] INFO  resource.ResourceProcessor: Loading resource declarations...
+[18:23:44:400] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[18:23:44:401] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[18:23:44:502] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[18:23:44:795] INFO  resource.ResourceProcessor: Finished full reload
+[18:23:45:719] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[18:23:45:746] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[18:23:45:751] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[18:23:45:800] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[18:23:46:846] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[18:23:46:892] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:26:35:872] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:26:35:889] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:26:36:511] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:26:36:517] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:26:42:667] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[18:26:48:585] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[18:26:49:627] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[18:26:49:629] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[18:26:50:762] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[18:26:53:087] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@3dec90c3: startup date [Mon Jan 12 18:26:49 CST 2015]; parent: Root WebApplicationContext]
+[18:26:54:334] INFO  resource.ResourceProcessor: Performing a full reload
+[18:26:54:548] INFO  resource.ResourceProcessor: Loading resource declarations...
+[18:26:54:548] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[18:26:54:549] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[18:26:54:714] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[18:26:55:110] INFO  resource.ResourceProcessor: Finished full reload
+[18:26:55:907] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[18:26:55:928] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[18:26:55:932] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[18:26:55:987] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[18:26:56:772] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[18:26:56:818] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:27:15:413] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[18:28:56:945] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:28:56:966] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:28:57:529] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:28:57:536] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:29:02:107] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[18:29:06:486] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[18:29:07:392] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[18:29:07:396] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[18:29:08:468] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[18:29:11:148] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@26dc83dd: startup date [Mon Jan 12 18:29:07 CST 2015]; parent: Root WebApplicationContext]
+[18:29:12:327] INFO  resource.ResourceProcessor: Performing a full reload
+[18:29:13:017] INFO  resource.ResourceProcessor: Loading resource declarations...
+[18:29:13:017] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[18:29:13:018] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[18:29:13:137] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[18:29:13:432] INFO  resource.ResourceProcessor: Finished full reload
+[18:29:14:238] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[18:29:14:249] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[18:29:14:257] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[18:29:14:322] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[18:29:14:543] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[18:29:14:600] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:30:06:442] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[18:32:35:247] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[18:33:00:052] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[19:23:30:382] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[19:23:30:407] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[19:23:30:747] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[19:23:30:753] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[19:23:36:469] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[19:23:41:693] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[19:23:42:382] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[19:23:42:384] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[19:23:43:545] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[19:23:44:916] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@51cfe1e2: startup date [Mon Jan 12 19:23:42 CST 2015]; parent: Root WebApplicationContext]
+[19:23:46:233] INFO  resource.ResourceProcessor: Performing a full reload
+[19:23:46:442] INFO  resource.ResourceProcessor: Loading resource declarations...
+[19:23:46:443] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[19:23:46:444] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[19:23:46:618] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[19:23:47:179] INFO  resource.ResourceProcessor: Finished full reload
+[19:23:48:333] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[19:23:48:344] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[19:23:48:348] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[19:23:48:495] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[19:23:49:373] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[19:23:49:430] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[20:10:18:995] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[20:37:59:992] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[20:38:21:656] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[21:01:30:619] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[21:01:34:102] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[21:04:10:562] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[21:04:10:803] ERROR compiler.GrailsProjectWatcher: Compilation Error: startup failed:
+Compile error during compilation with javac.
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:307: error: cannot find symbol
+                    MqttClient mMqttClient;
+                    ^
+  symbol:   class MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:309: error: cannot find symbol
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+                                          ^
+  symbol:   class MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:309: error: cannot find symbol
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+                                                     ^
+  symbol:   variable broker
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:309: error: cannot find symbol
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+                                                            ^
+  symbol:   variable MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:311: error: cannot find symbol
+                        MqttConnectOptions	connOpts = new MqttConnectOptions();
+                        ^
+  symbol:   class MqttConnectOptions
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:311: error: cannot find symbol
+                        MqttConnectOptions	connOpts = new MqttConnectOptions();
+                                          	               ^
+  symbol:   class MqttConnectOptions
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:316: error: cannot find symbol
+                        System.out.println(topic);
+                                           ^
+  symbol:   variable topic
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:317: error: cannot find symbol
+                        MqttMessage message = new MqttMessage(content.getBytes());
+                        ^
+  symbol:   class MqttMessage
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:317: error: cannot find symbol
+                        MqttMessage message = new MqttMessage(content.getBytes());
+                                                  ^
+  symbol:   class MqttMessage
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:319: error: cannot find symbol
+                        mMqttClient.publish(topic, message);
+                                            ^
+  symbol:   variable topic
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:322: error: cannot find symbol
+                    } catch (MqttException e) {
+                             ^
+  symbol:   class MqttException
+  location: class Go
+11 errors
+
+
+1 error
+
+[21:04:40:853] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[21:04:41:007] ERROR compiler.GrailsProjectWatcher: Compilation Error: startup failed:
+Compile error during compilation with javac.
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:308: error: cannot find symbol
+                    MqttClient mMqttClient;
+                    ^
+  symbol:   class MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:310: error: cannot find symbol
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+                                          ^
+  symbol:   class MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:310: error: cannot find symbol
+                        mMqttClient = new MqttClient(broker,MqttClient.generateClientId());
+                                                            ^
+  symbol:   variable MqttClient
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:312: error: cannot find symbol
+                        MqttConnectOptions	connOpts = new MqttConnectOptions();
+                        ^
+  symbol:   class MqttConnectOptions
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:312: error: cannot find symbol
+                        MqttConnectOptions	connOpts = new MqttConnectOptions();
+                                          	               ^
+  symbol:   class MqttConnectOptions
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:318: error: cannot find symbol
+                        MqttMessage message = new MqttMessage(content.getBytes());
+                        ^
+  symbol:   class MqttMessage
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:318: error: cannot find symbol
+                        MqttMessage message = new MqttMessage(content.getBytes());
+                                                  ^
+  symbol:   class MqttMessage
+  location: class Go
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java:323: error: cannot find symbol
+                    } catch (MqttException e) {
+                             ^
+  symbol:   class MqttException
+  location: class Go
+8 errors
+
+
+1 error
+
+[21:05:47:122] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[22:36:40:521] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[22:36:40:564] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[22:36:40:988] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[22:36:40:994] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[22:36:46:615] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[22:36:51:750] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[22:36:52:383] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[22:36:52:385] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[22:36:53:289] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[22:36:54:776] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@35fc40b2: startup date [Mon Jan 12 22:36:52 CST 2015]; parent: Root WebApplicationContext]
+[22:36:56:547] INFO  resource.ResourceProcessor: Performing a full reload
+[22:36:56:772] INFO  resource.ResourceProcessor: Loading resource declarations...
+[22:36:56:772] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[22:36:56:775] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[22:36:56:909] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[22:36:57:312] INFO  resource.ResourceProcessor: Finished full reload
+[22:36:58:205] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[22:36:58:215] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[22:36:58:219] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[22:36:58:285] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[22:36:59:549] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[22:36:59:673] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[22:38:22:159] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[23:48:40:298] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[23:48:43:615] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[23:48:55:806] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[00:19:28:281] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[00:19:28:297] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[00:19:28:833] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[00:19:28:839] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[00:19:33:909] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[00:19:39:793] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[00:19:40:523] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[00:19:40:525] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[00:19:41:530] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[00:19:42:790] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@18b11695: startup date [Tue Jan 13 00:19:40 CST 2015]; parent: Root WebApplicationContext]
+[00:19:44:036] INFO  resource.ResourceProcessor: Performing a full reload
+[00:19:44:247] INFO  resource.ResourceProcessor: Loading resource declarations...
+[00:19:44:248] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[00:19:44:249] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[00:19:44:400] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[00:19:44:842] INFO  resource.ResourceProcessor: Finished full reload
+[00:19:45:703] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[00:19:45:714] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[00:19:45:718] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[00:19:45:790] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[00:19:46:547] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[00:19:46:599] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[00:33:00:104] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[00:33:00:129] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[00:33:00:404] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[00:33:00:410] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[00:33:05:494] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[00:33:10:176] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[00:33:11:110] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[00:33:11:112] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[00:33:12:161] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[00:33:13:543] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@41340: startup date [Tue Jan 13 00:33:10 CST 2015]; parent: Root WebApplicationContext]
+[00:33:14:844] INFO  resource.ResourceProcessor: Performing a full reload
+[00:33:15:070] INFO  resource.ResourceProcessor: Loading resource declarations...
+[00:33:15:070] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[00:33:15:071] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[00:33:15:229] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[00:33:15:710] INFO  resource.ResourceProcessor: Finished full reload
+[00:33:16:528] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[00:33:16:549] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[00:33:16:554] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[00:33:16:604] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[00:33:17:332] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[00:33:17:375] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[00:35:48:224] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[01:02:56:925] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[01:28:28:591] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:28:28:614] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:28:28:884] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:28:28:890] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:28:33:333] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[01:28:37:953] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[01:28:38:465] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[01:28:38:468] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[01:28:39:387] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[01:28:41:003] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@5853d6bb: startup date [Tue Jan 13 01:28:38 CST 2015]; parent: Root WebApplicationContext]
+[01:28:42:210] INFO  resource.ResourceProcessor: Performing a full reload
+[01:28:42:411] INFO  resource.ResourceProcessor: Loading resource declarations...
+[01:28:42:412] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[01:28:42:413] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[01:28:42:541] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[01:28:42:983] INFO  resource.ResourceProcessor: Finished full reload
+[01:28:43:849] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[01:28:43:861] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[01:28:43:867] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[01:28:43:952] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[01:28:44:705] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[01:28:44:755] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[01:29:34:924] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:29:34:950] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:29:35:263] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:29:35:270] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:29:39:834] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[01:29:44:805] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[01:29:45:487] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[01:29:45:489] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[01:29:46:425] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[01:29:48:277] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@51cfe1e2: startup date [Tue Jan 13 01:29:45 CST 2015]; parent: Root WebApplicationContext]
+[01:29:49:887] INFO  resource.ResourceProcessor: Performing a full reload
+[01:29:50:091] INFO  resource.ResourceProcessor: Loading resource declarations...
+[01:29:50:092] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[01:29:50:093] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[01:29:50:258] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[01:29:50:658] INFO  resource.ResourceProcessor: Finished full reload
+[01:29:51:566] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[01:29:51:576] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[01:29:51:581] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[01:29:51:673] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[01:29:51:896] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[01:29:51:949] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[01:30:51:389] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:30:51:416] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:30:52:071] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[01:30:52:077] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[01:30:56:321] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[01:31:00:664] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[01:31:01:363] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[01:31:01:365] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[01:31:02:455] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[01:31:03:789] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4a87a8df: startup date [Tue Jan 13 01:31:01 CST 2015]; parent: Root WebApplicationContext]
+[01:31:04:937] INFO  resource.ResourceProcessor: Performing a full reload
+[01:31:05:145] INFO  resource.ResourceProcessor: Loading resource declarations...
+[01:31:05:146] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[01:31:05:147] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[01:31:05:323] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[01:31:05:829] INFO  resource.ResourceProcessor: Finished full reload
+[01:31:06:766] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[01:31:06:778] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[01:31:06:785] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[01:31:06:875] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[01:31:07:109] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[01:31:07:183] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[02:32:47:569] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[02:32:47:587] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[02:32:47:768] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[02:32:47:772] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[02:32:52:661] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[02:32:57:289] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[02:32:57:898] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[02:32:57:901] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[02:32:58:744] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[02:33:00:087] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@267e7a41: startup date [Tue Jan 13 02:32:57 CST 2015]; parent: Root WebApplicationContext]
+[02:33:01:273] INFO  resource.ResourceProcessor: Performing a full reload
+[02:33:01:469] INFO  resource.ResourceProcessor: Loading resource declarations...
+[02:33:01:469] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[02:33:01:471] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[02:33:01:632] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[02:33:02:073] INFO  resource.ResourceProcessor: Finished full reload
+[02:33:02:832] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[02:33:02:841] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[02:33:02:846] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[02:33:02:936] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[02:33:03:731] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[02:33:03:782] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[02:38:22:988] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[02:39:54:367] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[05:28:09:201] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[05:28:09:232] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[05:28:09:930] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[05:28:09:935] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[05:28:14:929] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[05:28:21:201] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[05:28:21:920] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[05:28:21:924] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[05:28:22:935] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[05:28:25:237] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@105feeb3: startup date [Tue Jan 13 05:28:21 CST 2015]; parent: Root WebApplicationContext]
+[05:28:26:639] INFO  resource.ResourceProcessor: Performing a full reload
+[05:28:26:895] INFO  resource.ResourceProcessor: Loading resource declarations...
+[05:28:26:895] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[05:28:26:896] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[05:28:27:085] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[05:28:27:602] INFO  resource.ResourceProcessor: Finished full reload
+[05:28:28:678] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[05:28:28:693] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[05:28:28:702] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[05:28:28:796] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[05:28:29:718] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[05:28:29:781] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[14:46:09:559] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[14:46:09:573] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[14:46:10:236] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[14:46:10:242] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[14:46:15:006] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[14:46:19:954] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[14:46:20:734] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[14:46:20:737] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[14:46:21:843] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[14:46:23:922] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@655d2842: startup date [Tue Jan 13 14:46:20 CST 2015]; parent: Root WebApplicationContext]
+[14:46:25:294] INFO  resource.ResourceProcessor: Performing a full reload
+[14:46:25:449] INFO  resource.ResourceProcessor: Loading resource declarations...
+[14:46:25:449] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[14:46:25:450] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[14:46:25:719] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[14:46:26:684] INFO  resource.ResourceProcessor: Finished full reload
+[14:46:28:167] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[14:46:28:181] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[14:46:28:189] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[14:46:28:256] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[14:46:28:491] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[14:46:28:649] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[15:01:04:587] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[15:01:08:373] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[15:02:14:556] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[15:02:20:741] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[15:03:36:765] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:03:36:791] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:03:37:250] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:03:37:255] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:03:41:441] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[15:03:45:408] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[15:03:45:938] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[15:03:45:940] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[15:03:46:721] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[15:03:48:195] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@547fc091: startup date [Tue Jan 13 15:03:45 CST 2015]; parent: Root WebApplicationContext]
+[15:03:49:184] INFO  resource.ResourceProcessor: Performing a full reload
+[15:03:49:417] INFO  resource.ResourceProcessor: Loading resource declarations...
+[15:03:49:417] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[15:03:49:418] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[15:03:49:539] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[15:03:49:856] INFO  resource.ResourceProcessor: Finished full reload
+[15:03:51:290] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[15:03:51:299] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[15:03:51:304] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[15:03:51:378] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[15:03:51:598] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[15:03:51:650] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[15:35:56:795] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:35:56:818] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:35:57:880] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:35:57:886] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:36:04:130] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[15:36:10:213] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[15:36:10:976] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[15:36:10:978] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[15:36:11:740] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[15:36:17:895] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@1ff19bf0: startup date [Tue Jan 13 15:36:10 CST 2015]; parent: Root WebApplicationContext]
+[15:36:19:198] INFO  resource.ResourceProcessor: Performing a full reload
+[15:36:19:400] INFO  resource.ResourceProcessor: Loading resource declarations...
+[15:36:19:400] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[15:36:19:401] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[15:36:19:575] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[15:36:19:958] INFO  resource.ResourceProcessor: Finished full reload
+[15:36:20:709] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[15:36:20:732] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[15:36:20:736] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[15:36:20:787] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[15:36:21:520] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[15:36:26:584] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[15:52:43:996] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[15:52:53:891] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[15:59:30:097] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:59:30:117] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:59:30:534] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:59:30:537] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:59:35:572] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[15:59:40:058] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[15:59:40:798] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[15:59:40:800] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[15:59:41:645] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[15:59:47:876] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@b8bcec2: startup date [Tue Jan 13 15:59:40 CST 2015]; parent: Root WebApplicationContext]
+[15:59:49:015] INFO  resource.ResourceProcessor: Performing a full reload
+[15:59:49:227] INFO  resource.ResourceProcessor: Loading resource declarations...
+[15:59:49:227] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[15:59:49:228] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[15:59:49:381] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[15:59:49:843] INFO  resource.ResourceProcessor: Finished full reload
+[15:59:50:786] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[15:59:50:811] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[15:59:50:817] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[15:59:50:886] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[15:59:51:669] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[15:59:52:795] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[16:07:36:240] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:07:52:346] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:07:58:522] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:04:761] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:25:972] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:26:171] ERROR compiler.GrailsProjectWatcher: Compilation Error: startup failed:
+Compile error during compilation with javac.
+/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java:39: error: incompatible types
+            if (timer) {
+                ^
+  required: boolean
+  found:    Timer
+1 error
+
+
+1 error
+
+[16:08:29:178] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:32:348] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:35:488] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:38:632] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:08:44:759] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/mqtt/FIMqttLooper.java] changed. Applying changes to application.
+[16:09:44:978] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[16:09:48:172] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[16:12:08:152] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[16:12:08:174] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[16:12:08:652] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[16:12:08:656] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[16:12:13:775] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[16:12:18:785] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[16:12:19:416] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[16:12:19:418] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[16:12:20:349] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[16:12:24:276] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@1b16b24f: startup date [Tue Jan 13 16:12:19 CST 2015]; parent: Root WebApplicationContext]
+[16:12:25:500] INFO  resource.ResourceProcessor: Performing a full reload
+[16:12:25:702] INFO  resource.ResourceProcessor: Loading resource declarations...
+[16:12:25:702] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[16:12:25:703] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[16:12:25:855] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[16:12:26:332] INFO  resource.ResourceProcessor: Finished full reload
+[16:12:27:298] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[16:12:27:303] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[16:12:27:309] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[16:12:27:398] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[16:12:28:201] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[16:12:28:254] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[16:28:18:713] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[16:31:44:735] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[16:31:51:037] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[16:43:00:627] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[16:43:00:644] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[16:43:01:206] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[16:43:01:212] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[16:43:05:817] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[16:43:10:784] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[16:43:11:446] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[16:43:11:448] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[16:43:12:635] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[16:43:15:482] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@707a95d9: startup date [Tue Jan 13 16:43:11 CST 2015]; parent: Root WebApplicationContext]
+[16:43:18:234] INFO  resource.ResourceProcessor: Performing a full reload
+[16:43:18:456] INFO  resource.ResourceProcessor: Loading resource declarations...
+[16:43:18:456] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[16:43:18:457] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[16:43:18:613] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[16:43:19:023] INFO  resource.ResourceProcessor: Finished full reload
+[16:43:20:208] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[16:43:20:224] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[16:43:20:231] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[16:43:20:338] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[16:43:21:154] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[16:43:21:231] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[15:53:23:176] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:53:23:203] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:53:23:673] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:53:23:679] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:53:29:353] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[15:53:35:074] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[15:53:35:847] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[15:53:35:850] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[15:53:37:099] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[15:53:38:316] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@46fe390b: startup date [Wed Jan 14 15:53:35 CST 2015]; parent: Root WebApplicationContext]
+[15:53:39:480] INFO  resource.ResourceProcessor: Performing a full reload
+[15:53:39:681] INFO  resource.ResourceProcessor: Loading resource declarations...
+[15:53:39:682] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[15:53:39:683] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[15:53:39:847] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[15:53:40:256] INFO  resource.ResourceProcessor: Finished full reload
+[15:53:41:275] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[15:53:41:289] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[15:53:41:295] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[15:53:41:387] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[15:53:42:269] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[15:53:42:421] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:19:27:687] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:19:27:711] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:19:27:999] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:19:28:005] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:19:33:082] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[18:19:38:407] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[18:19:39:063] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[18:19:39:065] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[18:19:39:843] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[18:19:40:955] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@655d2842: startup date [Wed Jan 14 18:19:38 CST 2015]; parent: Root WebApplicationContext]
+[18:19:42:053] INFO  resource.ResourceProcessor: Performing a full reload
+[18:19:42:242] INFO  resource.ResourceProcessor: Loading resource declarations...
+[18:19:42:243] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[18:19:42:244] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[18:19:42:391] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[18:19:42:743] INFO  resource.ResourceProcessor: Finished full reload
+[18:19:43:599] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[18:19:43:609] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[18:19:43:615] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[18:19:43:695] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[18:19:44:470] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[18:19:44:517] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8080"]
+[18:21:12:273] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[14:26:00:426] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[14:28:28:435] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Mapper.java] changed. Applying changes to application.
+[14:28:37:969] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/controllers/com/intel/formosa/MappersController.groovy] changed. Applying changes to application.
+[14:29:15:048] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[14:29:18:279] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/src/java/com/intel/formosa/test/Go.java] changed. Applying changes to application.
+[15:53:24:454] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:53:24:478] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:53:24:878] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[15:53:24:885] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[15:53:30:442] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[15:53:35:961] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[15:53:36:678] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[15:53:36:680] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[15:53:37:603] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[15:53:38:890] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@44cd75fd: startup date [Fri Jan 16 15:53:36 CST 2015]; parent: Root WebApplicationContext]
+[15:53:40:182] INFO  resource.ResourceProcessor: Performing a full reload
+[15:53:40:409] INFO  resource.ResourceProcessor: Loading resource declarations...
+[15:53:40:410] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[15:53:40:411] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[15:53:40:618] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[15:53:41:052] INFO  resource.ResourceProcessor: Finished full reload
+[15:53:41:813] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[15:53:41:826] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[15:53:41:831] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[15:53:41:901] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[15:53:42:171] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[15:53:42:240] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8081"]
+[15:54:34:100] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'gsp'
+[15:54:34:100] INFO  [localhost].[/Mapper-Servlet]: GSP servlet initialized
+[13:03:42:517] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[13:03:42:540] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[13:03:43:476] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[13:03:43:484] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[13:03:48:749] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[13:03:53:026] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[13:03:53:993] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[13:03:53:995] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[13:03:54:938] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[13:03:56:615] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@1b16b24f: startup date [Tue Jan 20 13:03:53 CST 2015]; parent: Root WebApplicationContext]
+[13:03:58:212] INFO  resource.ResourceProcessor: Performing a full reload
+[13:03:58:459] INFO  resource.ResourceProcessor: Loading resource declarations...
+[13:03:58:459] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[13:03:58:460] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[13:03:58:589] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[13:03:58:945] INFO  resource.ResourceProcessor: Finished full reload
+[13:03:59:762] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[13:03:59:787] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[13:03:59:794] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[13:03:59:867] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[13:04:00:158] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[13:04:00:227] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8081"]
+[13:04:03:755] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'gsp'
+[13:04:03:755] INFO  [localhost].[/Mapper-Servlet]: GSP servlet initialized
+[13:08:19:074] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/conf/BootStrap.groovy] changed. Applying changes to application.
+[13:08:19:898] INFO  compiler.GrailsProjectWatcher: File [/Users/Maydaycha/dev/Intel/Mapper-Servlet/grails-app/conf/BootStrap.groovy] changed. Applying changes to application.
+[18:15:46:272] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:15:46:312] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:15:47:125] INFO  webxml.WebxmlGrailsPlugin: Loading default config file: class DefaultWebXmlConfig
+[18:15:47:132] WARN  webxml.WebxmlGrailsPlugin: Did not find application config file: WebXmlConfig
+[18:15:53:160] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring root WebApplicationContext
+[18:15:58:095] INFO  hibernate3.HibernatePluginSupport: Set db generation strategy to 'create-drop' for datasource DEFAULT
+[18:15:58:840] INFO  cache.CacheBeanPostProcessor: postProcessBeanDefinitionRegistry start
+[18:15:58:843] INFO  cache.CacheBeanPostProcessor: postProcessBeanFactory
+[18:16:00:652] WARN  config.ConfigurationFactory: No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/Users/Maydaycha/.m2/repository/net/sf/ehcache/ehcache-core/2.4.8/ehcache-core-2.4.8.jar!/ehcache-failsafe.xml
+[18:16:02:280] INFO  scaffolding.AbstractGrailsTemplateGenerator: Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@1fa7abb1: startup date [Tue Jan 20 18:15:58 CST 2015]; parent: Root WebApplicationContext]
+[18:16:03:615] INFO  resource.ResourceProcessor: Performing a full reload
+[18:16:03:790] INFO  resource.ResourceProcessor: Loading resource declarations...
+[18:16:03:790] INFO  resource.ResourceProcessor: Forgetting all known modules...
+[18:16:03:791] INFO  resource.ResourceProcessor: Forgetting all known resources...
+[18:16:03:942] WARN  module.ModuleDeclarationsFactory: 'grails.resources.modules' in config does not define any modules
+[18:16:04:321] INFO  resource.ResourceProcessor: Finished full reload
+[18:16:05:366] INFO  databasemigration.MigrationRunner: updateOnStart disabled for dataSource; not running migrations
+[18:16:05:376] INFO  ScaffoldingGrailsPlugin: configuring scaffolding...
+[18:16:05:380] INFO  ScaffoldingGrailsPlugin: done configuring scaffolding.
+[18:16:05:440] INFO  context.GrailsConfigUtils: [GrailsContextLoader] Grails application loaded.
+[18:16:05:679] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'grails'
+[18:16:05:743] INFO  http11.Http11Protocol: Starting ProtocolHandler ["http-bio-8081"]
+[18:16:12:012] INFO  [localhost].[/Mapper-Servlet]: Initializing Spring FrameworkServlet 'gsp'
+[18:16:12:013] INFO  [localhost].[/Mapper-Servlet]: GSP servlet initialized
+[18:16:22:463] INFO  formosa.MappersController: hi

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<project name="Mapper" default="dist" basedir=".">
+
+    <property name="src" location="src" />
+    <property name="dist" location="libs" />
+    <property name="dist.jar" location="${dist}/RuleEngine.jar" />
+    <property name="ruleEngine-root-folder" location="../../formosa_island-fi_core/FIRuleEngine" />
+
+    <target name="dist">
+        <mkdir dir="${dist}" />
+        <jar destfile="${dist.jar}">
+            <zipgroupfileset dir="${ruleEngine-root-folder}/libs" includes=".jar" />
+            <fileset dir="${ruleEngine-root-folder}/bin" />
+        </jar>
+    </target>
+
+    <!--<target name="run">-->
+    <!--<loadfile property="args" srcfile="args.txt" />-->
+    <!--<java jar="${dist.jar}" fork="true">-->
+    <!--<arg line="{$args}" />-->
+    <!--</java>-->
+    <!--</target>-->
+
+    <target name="clean">
+        <delete dir="${dist.jar}" />
+    </target>
+
+</project>

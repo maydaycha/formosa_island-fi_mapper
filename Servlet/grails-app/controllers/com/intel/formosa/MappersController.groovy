@@ -1,8 +1,10 @@
 package com.intel.formosa
 
+import com.intel.formosa.mapper.Mapper
 import grails.converters.JSON
 import org.json.simple.JSONObject
-import com.intel.formosa.test.Mapper
+
+
 class MappersController {
 
     HashMap threadPool = new HashMap();
