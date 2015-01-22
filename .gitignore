@@ -3,3 +3,4 @@ Mapper/Mapper.iml
 Servlet/target/*
 Servlet/tartget/classes/*
 Servlet/.idea/*
+Mapper/out/*
