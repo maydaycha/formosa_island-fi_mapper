@@ -12,9 +12,8 @@
         <jar destfile="${dist.jar}">
             <zipgroupfileset dir="${mapper-root-folder}/libs" includes=".jar" />
 			<fileset dir="${mapper-root-folder}/bin" />
-<!-- 
 			<zipgroupfileset dir="${ruleEngine-root-folder}/libs" includes=".jar" />
-			<fileset dir="${ruleEngine-root-folder}/bin" /> -->
+			<fileset dir="${ruleEngine-root-folder}/bin" />
         </jar>
     </target>
 

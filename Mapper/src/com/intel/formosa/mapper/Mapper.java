@@ -69,7 +69,7 @@ public class Mapper {
         JSONParser parser = new JSONParser();
 
         JSONObject jsonObj = (JSONObject)parser.parse(jsonObjString);
-        String sessionId = ";";
+        String sessionId = "";
 
         jsonObj.remove("type");
         jsonObj.put("type", "resp");
@@ -88,17 +88,17 @@ public class Mapper {
         }
 
         if (runnableInstance.containsKey(sessionId)) {
-            Go g = (Go) runnableInstance.get(sessionId);
+            Go2 g = (Go2) runnableInstance.get(sessionId);
             g.setAliveFlag(false);
             g = null;
             runnableInstance.remove(sessionId);
         }
 
-        Go go = new Go(a);
+        Go2 go = new Go2();
         Thread t1 = new Thread(go);
         t1.start();
         runnableInstance.put(sessionId, go);
-        System.out.println("Add " + sessionId + " to Hash Map");
+//        System.out.println("Add " + sessionId + " to Hash Map");
 
         jsonObj.put("success", true);
 //        jsonObj.put("success", false);
@@ -431,4 +431,10 @@ public class Mapper {
             System.out.println("[stopRuleEngine] not entry ");
         }
     }
+
+
+//    public static void main(String[] args) {
+//        Go2 go = new Go2();
+//        new Thread(go).start();
+//    }
 }
