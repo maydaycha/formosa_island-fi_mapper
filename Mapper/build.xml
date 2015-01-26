@@ -3,7 +3,7 @@
 
     <property name="src" location="src" />
     <property name="dist" location="libs" />
-    <property name="dist.jar" location="${dist}/RuleEngine.jar" />
+    <property name="dist.jar" location="${dist}/FI_RuleEngine.jar" />
     <property name="ruleEngine-root-folder" location="../../formosa_island-fi_core/FIRuleEngine" />
 
     <target name="dist">
@@ -13,13 +13,6 @@
             <fileset dir="${ruleEngine-root-folder}/bin" />
         </jar>
     </target>
-
-    <!--<target name="run">-->
-    <!--<loadfile property="args" srcfile="args.txt" />-->
-    <!--<java jar="${dist.jar}" fork="true">-->
-    <!--<arg line="{$args}" />-->
-    <!--</java>-->
-    <!--</target>-->
 
     <target name="clean">
         <delete dir="${dist.jar}" />

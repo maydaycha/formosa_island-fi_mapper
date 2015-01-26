@@ -1,5 +1,7 @@
 package com.intel.formosa.mapper;
 
+import com.intel.formosa.test.Go;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.intel.formosa.test.Go;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -24,7 +25,7 @@ import org.json.simple.parser.ParseException;
 
 public class Mapper {
 
-    private final String gateway_ip = "192.168.184.130";
+    private final String gateway_ip = "192.168.184.131";
     private final String gateway_port = "8080";
     private final String gateway_url = "http://" + gateway_ip + ":" + gateway_port;
 
@@ -48,7 +49,7 @@ public class Mapper {
 
     private long protocol_id = 0;
 
-    private Device[] arrDevice = new Device[50];
+    //private Device[] arrDevice = new Device[50];
     private ArrayList<Device> deviceList = new ArrayList<Device>();
 
     private HashMap runnableInstance = new HashMap();
@@ -59,18 +60,6 @@ public class Mapper {
 //        String data = "";
         JSONObject result;
         Mapper conn = new Mapper();
-
-        /** this will do in the run function */
-//        conn.generateToken();
-
-
-        /** this will do in the run function */
-        // retrieve all devices info
-//        data = conn.retrieveDevicesList(uriDeviceInfo);
-
-        // retrieve SPECIFIC device info
-        String deviceMAC = "00137a000001b448";
-        //	conn.retrieveDevicesList(uriDeviceInfo + deviceMAC);
 
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
 
@@ -154,6 +143,12 @@ public class Mapper {
     }
 
 
+    public JSONObject run1(String jsonObjString) throws Exception {
+        JSONObject jsonObj = (JSONObject) new JSONParser().parse(jsonObjString);
+        return jsonObj;
+    }
+
+
 
 
     public JSONObject run(String jsonObjString) throws Exception {
@@ -195,7 +190,7 @@ public class Mapper {
 
             for(index = 0; index<deviceList.size();index++){
 
-                if(requested_sensor[i].equals(deviceList.get(index).get_s_id())){
+                if(requested_sensor[i].equals(deviceList.get(index).get_s_id().substring(3))){
 
                     System.out.println("Sensor: "+requested_sensor[i]+" from "+deviceList.get(index).get_d_mac());
                     available_sensor[i] = "/"+protocol_id+"/"+deviceList.get(index).get_d_mac()+"/"+deviceList.get(index).get_s_id();
@@ -213,15 +208,14 @@ public class Mapper {
 
             if(check != null){
                 sensor.remove("deviceName");
-
                 sensor.put("deviceName", available_sensor[i]);
-                System.out.println(available_sensor[i]);
                 i++;
             }
         }
 
 
         if(sensorRequest == num) { //success
+
             if (runnableInstance.containsKey(sessionId)) {
                 Go g = (Go) runnableInstance.get(sessionId);
                 g.setAliveFlag(false);
@@ -242,8 +236,6 @@ public class Mapper {
 
         return jsonObj;
     }
-
-
 
     private void retrieveData(String jsonObjString) throws Exception {
 
@@ -282,7 +274,7 @@ public class Mapper {
 
                         String sensor_name = (String) each_sensor.get("sensor_name");
                         String sensor_identifier = (String) each_sensor.get("sensor_identifier");
-                        sensor_identifier = sensor_identifier.substring(3);
+                        //sensor_identifier = sensor_identifier.substring(3);
 
                         Device device = new Device(deviceName ,sensor_name ,deviceMAC, sensor_identifier);
                         deviceList.add(device);
@@ -293,22 +285,34 @@ public class Mapper {
             }
         }
 
+        counter = 0;
+        // Search requested sensors/actuators from the list of available devices
+        for(int index =0; index < deviceList.size(); index ++){
+            String deviceType = deviceList.get(index).get_s_id();
+//    	   Boolean deviceStatus = deviceList.get(index).getAlive();
 
-
-//    	 counter = 0;
-//       // Search requested sensors/actuators from the list of available devices
-//       for(int index =0; index < deviceList.size(); index ++){
-//    	   String deviceType = deviceList.get(index).get_s_id();
-////    	   Boolean deviceStatus = deviceList.get(index).getAlive();
-//
-//    	   if(deviceType.equals(available_sensor[index])){
-//    		   available_sensor[counter] = deviceList.get(index).get_s_id();
-//    		   counter++;
-//    		   break;
-//    	   }
-//       }
-
-
-
+            if(deviceType.equals(available_sensor[index])){
+                available_sensor[counter] = deviceList.get(index).get_s_id();
+                counter++;
+                break;
+            }
+        }
     }
+
+    public void stopRuleEngine(String sessionId) {
+        System.out.println("[stopRuleEngine] function call");
+        if (sessionId != null && !sessionId.equals("")) {
+            if (runnableInstance.containsKey(sessionId)) {
+                Go g = (Go) runnableInstance.get(sessionId);
+                System.out.println("[stopRuleEngine] get runnable by sessionId: " + sessionId);
+                g.setAliveFlag(false);
+                System.out.println("[stopRuleEngine] set flag false: " + g.getAliveFlag());
+                g = null;
+                runnableInstance.remove(sessionId);
+            }
+        } else {
+            System.out.println("[stopRuleEngine] not entry ");
+        }
+    }
+
 }
