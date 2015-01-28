@@ -5,3 +5,4 @@ Servlet/tartget/classes/*
 Servlet/.idea/*
 Mapper/out/*
 Mapper/bin/*
+Servlet/*.war
