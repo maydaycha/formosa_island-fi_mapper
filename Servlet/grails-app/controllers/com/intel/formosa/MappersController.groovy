@@ -2,9 +2,6 @@ package com.intel.formosa
 
 import com.intel.formosa.mapper.Mapper
 import grails.converters.JSON
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.DefaultHttpClient
 import org.json.simple.JSONObject
 
 
@@ -36,9 +33,9 @@ class MappersController {
 
         log.info("call run!")
 
-        JSONObject result = mapper.run(jsonObject.toJSONString())
+//        JSONObject result = mapper.run(jsonObject.toJSONString())
 
-//        JSONObject result = mapper.run1(jsonObject.toJSONString())
+        JSONObject result = mapper.run1(jsonObject.toJSONString())
 
 //        JSONObject result = jsonObject
 //        result.session_id == null ? "1234" : result.session_id

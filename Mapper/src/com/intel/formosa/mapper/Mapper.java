@@ -161,6 +161,7 @@ public class Mapper {
 
     public JSONObject run1(String jsonObjString) throws Exception {
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(jsonObjString);
+        HttpClient client = new DefaultHttpClient();
         return jsonObj;
     }
 
