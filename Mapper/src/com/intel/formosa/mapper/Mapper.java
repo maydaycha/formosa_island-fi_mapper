@@ -18,12 +18,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.hyperic.sigar.Sigar;
-import org.hyperic.sigar.SigarException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -59,15 +53,6 @@ public class Mapper {
 
     private HashMap runnableInstance = new HashMap();
 
-    private MqttClient mqttClient;
-
-    public Mapper() throws MqttException {
-        mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
-        MqttConnectOptions connOpts = new MqttConnectOptions();
-        connOpts.setCleanSession(true);
-        mqttClient.connect(connOpts);
-    }
-
 
     public static void main (String[] args) throws Exception{
         JSONObject result;
@@ -82,7 +67,7 @@ public class Mapper {
     }
 
     public static void startDiscoverable () {
-        new Thread(new Discovery()).start();
+        new Thread(new Discoverable()).start();
     }
 
 

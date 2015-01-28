@@ -33,9 +33,9 @@ class MappersController {
 
         log.info("call run!")
 
-//        JSONObject result = mapper.run(jsonObject.toJSONString())
+        JSONObject result = mapper.run(jsonObject.toJSONString())
 
-        JSONObject result = mapper.run1(jsonObject.toJSONString())
+//        JSONObject result = mapper.run1(jsonObject.toJSONString())
 
 //        JSONObject result = jsonObject
 //        result.session_id == null ? "1234" : result.session_id

@@ -16,12 +16,12 @@ import java.util.Enumeration;
 /**
  * Created by Maydaycha on 1/28/15.
  */
-public class Discovery implements Runnable {
+public class Discoverable implements Runnable {
 
     private MqttClient mqttClient;
     private Sigar sigar;
 
-    private final String mqttBroker = "tcp://localhost:1883";
+    private final String mqttBroker = "tcp://192.168.11.132:1883";
 
     @Override
     public void run() {
