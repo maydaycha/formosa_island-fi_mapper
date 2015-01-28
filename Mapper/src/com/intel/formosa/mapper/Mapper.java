@@ -18,6 +18,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.hyperic.sigar.Sigar;
+import org.hyperic.sigar.SigarException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,8 +31,8 @@ import org.json.simple.parser.ParseException;
 
 public class Mapper {
 
-    private final String gateway_ip = "192.168.184.131";
-    private final String gateway_port = "8080";
+    private final String gateway_ip = "127.0.0.1";
+    private final int gateway_port = 8080;
     private final String gateway_url = "http://" + gateway_ip + ":" + gateway_port;
 
     private final String FIELD_USERNAME = "username";
@@ -36,8 +42,8 @@ public class Mapper {
 
     private final String uriDeviceInfo = "/api/provision/devices/info/";
     private final String USER_AGENT = "Mozilla/5.0";
-    private final String ip_address = "127.0.0.1";
-    private final int port = 8080;
+
+    private final String mqttBroker = "tcp://localhost:1883";
 
     private final String username = "admin";
     private final String password = "admin";
@@ -49,26 +55,36 @@ public class Mapper {
 
     private long protocol_id = 0;
 
-    //private Device[] arrDevice = new Device[50];
     private ArrayList<Device> deviceList = new ArrayList<Device>();
 
     private HashMap runnableInstance = new HashMap();
 
+    private MqttClient mqttClient;
+
+    public Mapper() throws MqttException {
+        mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        mqttClient.connect(connOpts);
+    }
+
 
     public static void main (String[] args) throws Exception{
-
-//        String data = "";
         JSONObject result;
-        Mapper conn = new Mapper();
+        Mapper mapper = new Mapper();
 
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
-        result = conn.run(jsonObj.toJSONString());
+        result = mapper.run(jsonObj.toJSONString());
 
         System.out.println(result);
-
     }
+
+    public static void startDiscoverable () {
+        new Thread(new Discovery()).start();
+    }
+
 
     // Generate token from Amelia Creek 1.1
     public void generateToken(){
@@ -121,7 +137,7 @@ public class Mapper {
         HttpGet get = new HttpGet(gateway_url+uri);
 
         try {
-            get.addHeader(FILED_AUTHORIZATION, FILED_STRTOKEN+ token);
+            get.addHeader(FILED_AUTHORIZATION, FILED_STRTOKEN + token);
 
             HttpResponse response = client.execute(get);
             rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -240,9 +256,6 @@ public class Mapper {
     private void retrieveData(String jsonObjString) throws Exception {
 
         int counter = 0;
-
-//        JSONParser jsonParser = new JSONParser();
-//        JSONObject objDevices = (JSONObject) jsonParser.parse(readerDevicesList);
 
         //TODO: Get Gateway IP Address
 
