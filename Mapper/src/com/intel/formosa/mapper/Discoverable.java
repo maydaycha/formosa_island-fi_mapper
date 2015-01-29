@@ -21,7 +21,7 @@ public class Discoverable implements Runnable {
     private MqttClient mqttClient;
     private Sigar sigar;
 
-    private final String mqttBroker = "tcp://192.168.11.132:1883";
+    private final String mqttBroker = "tcp://localhost:1883";
 
     @Override
     public void run() {
@@ -45,6 +45,8 @@ public class Discoverable implements Runnable {
                 while (inetAddress.hasMoreElements()) {
                     InetAddress addr = inetAddress.nextElement();
                     String candicateIp = addr.getHostAddress();
+
+                    /** ignore mac address */
                     if (candicateIp.split("\\.").length == 4) {
                         if (!candicateIp.equals("127.0.0.1")) {
                             hostIpAddress = candicateIp;
