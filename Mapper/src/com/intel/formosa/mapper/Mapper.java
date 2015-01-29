@@ -49,6 +49,7 @@ public class Mapper {
     private ArrayList<String> requested_actuator = new ArrayList<String>();
 
     private long protocol_id = 0;
+    private int numOfRequest = 0;
 
     //private Device[] arrDevice = new Device[50];
     private ArrayList<Device> deviceList = new ArrayList<Device>();
@@ -71,6 +72,7 @@ public class Mapper {
 
         /** the parameter of run() should be the JSON string passed from Web */
         result = conn.run(jsonObj.toJSONString());
+
         System.out.println(result);
     }
 
@@ -115,18 +117,18 @@ public class Mapper {
     }
 
     /** Retrieve devices data via Amelia Creek 1.1 API */
-    public String retrieveDevicesList(String uri) throws IOException {
+    public String retrieveDevicesList(String ip, String uri) throws IOException {
 
-        String strToken = "";
-        String data = "";
+        String strToken ="";
+        String data ="";
 
         BufferedReader rd = null;
 
         HttpClient client = new DefaultHttpClient();
-        HttpGet get = new HttpGet(gateway_url+uri);
+        HttpGet get = new HttpGet(ip+uri);
 
         try {
-            get.addHeader(FILED_AUTHORIZATION, FILED_STRTOKEN+ token);
+            get.addHeader(FILED_AUTHORIZATION, FILED_STRTOKEN + token);
 
             HttpResponse response = client.execute(get);
             rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -147,12 +149,13 @@ public class Mapper {
         return data;
     }
 
+    /** For json local testing */
     public JSONObject run1 (String jsonObjString) throws ParseException {
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(jsonObjString);
         return jsonObj;
     }
 
-    public JSONObject run(String jsonObjString) throws Exception {
+    public JSONObject run (String jsonObjString) throws Exception {
 
         int num = 0;
         int i = 0;
@@ -165,117 +168,86 @@ public class Mapper {
         requested_sensor.clear();
         available_sensor.clear();
 
-        JSONObject jsonObj = (JSONObject) new JSONParser().parse(jsonObjString);
 
-        /** get AC 1.1 authentication token */
-        generateToken();
+        /** Node RED User Input **/
+        JSONObject userInputJsonObj = (JSONObject) new JSONParser().parse(jsonObjString);
+        userInputJsonObj.remove("type");
+        userInputJsonObj.put("type", "resp");
+        sessionId = userInputJsonObj.get("session_id").toString();
 
-        jsonObj.remove("type");
-        jsonObj.put("type", "resp");
-        sessionId = jsonObj.get("session_id").toString();
-
-        JSONArray a = (JSONArray) jsonObj.get("flow");
+        JSONArray flow = (JSONArray) userInputJsonObj.get("flow");
 
         /** Search for the requested sensor */
-        for (Object o : a) {
+        for (Object o : flow) {
             JSONObject sensor = (JSONObject) o;
             Boolean check = (Boolean) sensor.get("check");
 
             if (check){
                 String deviceType = (String) sensor.get("deviceType");
-                requested_sensor.add(num, deviceType);
-                num++;
+                requested_sensor.add(numOfRequest, deviceType);
+                numOfRequest++;
             }
         }
 
-        /** retrieve all devices info */
-        retrieveData(retrieveDevicesList(uriDeviceInfo));
+        /** get AC 1.1 authentication token */
+        generateToken();
 
-        i = 0;
-        for(index = 0; index<deviceList.size();index++){
-            if(deviceList.get(index).get_alive().equals("true"))
-                i++;
-        }
-        if(num>i){
-            pass = false;
-        }
 
-        if(pass){
-            for(i = 0;i < num;i++){
+        //TODO 1: Call Mqtt to listen to discoverable topic. Store discovered pc into list
+        ArrayList<String> discover_list = new ArrayList<String>();
+        discover_list.add(gateway_ip);
 
-                for(index = 0; index<deviceList.size();index++){
-                    //  	System.out.println("Sensor: "+requested_sensor.get(i)+" from "+deviceList.get(index).get_s_id().substring(3));
-                    if(requested_sensor.get(i).equals(deviceList.get(index).get_s_id().substring(3))){
+        //TODO 2: Identify role - will stored into list
+        String role = "master";	// remove it once TODO2 done.
 
-                        System.out.println("Sensor: "+requested_sensor.get(i)+" from "+deviceList.get(index).get_d_mac());
-                        available_sensor.add(i,deviceList.get(index).get_alive()+"/"+protocol_id+"/"+deviceList.get(index).get_d_mac()+"/"+deviceList.get(index).get_s_id());
-                        sensorRequest++;
-                        break;
-                    }
+        //TODO 3: Different process for master and slave
+        if (role.equals("master")) {
+            //TODO: Pass the list of discoverable device to generate available devices
+            generateAvailableDevices(discover_list);
+
+            //TODO: Master assign job
+            assignJob(flow);
+            System.out.println("flow after assign : ");
+            System.out.println(flow);
+
+            //TODO: Create while loop - waiting for acknowledgement from slave
+            //TODO: Run rule-engine after receive all acknowledgement
+
+
+        	/*if(sensorRequest == numOfRequest) { //success
+                if (runnableInstance.containsKey(sessionId)) {
+                    Go g = (Go) runnableInstance.get(sessionId);
+         //           g.setAliveFlag(false);
+                    g = null;
+                    runnableInstance.remove(sessionId);
                 }
-            }
 
-            i = 0;
-            for (Object o : a) {
-                JSONObject sensor = (JSONObject) o;
-                Boolean check = (Boolean) sensor.get("check");
+                Go go = new Go(a);
+                Thread t1 = new Thread(go);
+                t1.start();
+                runnableInstance.put(sessionId, go);
+                System.out.print("add " + sessionId + " to HashMap");
 
-                if(check){
+                userInputJsonObj.put("success", true);
+            } else {
+                userInputJsonObj.put("success", false);
+            }*/
 
-                    String categoly = (String) sensor.get("categoly");
-                    if(available_sensor.get(i) != null){
-
-                        String[] names = available_sensor.get(i).split("/");
-
-                        String topic = "/"+names[1]+"/"+names[2]+"/"+names[3];
-
-                        if(categoly.equals("input")){
-                            if(names[0].equals(true))
-                                sensor.remove("deviceName");
-                            sensor.put("deviceName", topic);
-                            System.out.println("use : "+topic);
-
-                        }
-                        else{
-                            sensor.remove("deviceName");
-                            sensor.put("deviceName", topic);
-                            System.out.println("use : "+topic);
-
-                        }
-                        i++;
-                    }
-                }
-            }
         }
-        if(sensorRequest == num) { //success
-            if (runnableInstance.containsKey(sessionId)) {
-                Go g = (Go) runnableInstance.get(sessionId);
-                //           g.setAliveFlag(false);
-                g = null;
-                runnableInstance.remove(sessionId);
-            }
+        else{
+            //TODO: Add while loop - waiting for job assigned -listen via http
+            //TODO: Once received job, begin mapping
+            //TODO: Return acknowledgement back to master
 
-            Go go = new Go(a);
-            Thread t1 = new Thread(go);
-            t1.start();
-            runnableInstance.put(sessionId, go);
-            System.out.print("add " + sessionId + " to HashMap");
-
-            jsonObj.put("success", true);
-        } else {
-            jsonObj.put("success", false);
         }
 
-        return jsonObj;
+        return userInputJsonObj;
     }
 
     private void retrieveData(String jsonObjString) throws Exception {
 
         int counter = 0;
         String sensor_alive = "false";
-
-//        JSONParser jsonParser = new JSONParser();
-//        JSONObject objDevices = (JSONObject) jsonParser.parse(readerDevicesList);
 
         //TODO: Get Gateway IP Address
 
@@ -307,7 +279,6 @@ public class Mapper {
 
                         String sensor_name = (String) each_sensor.get("sensor_name");
                         String sensor_identifier = (String) each_sensor.get("sensor_identifier");
-                        //sensor_identifier = sensor_identifier.substring(3);
                         String sensor_datetime = (String) each_sensor.get("sensor_datetime");
 
 
@@ -351,6 +322,101 @@ public class Mapper {
         }
     }
 
+
+    private void generateAvailableDevices (ArrayList <String> ListOfDiscoverableDevice) throws Exception{
+        //TODO: This function with parameter = discoverable array list
+        //TODO: For Loop - loop the discoverable item to retrieve available sensor/actuator from each gateway
+
+        int numOfPC = 2; //TODO: need to replace with size of array
+        int index = 0;
+
+        for(index=0; index<numOfPC; index++){
+            String url = ListOfDiscoverableDevice.get(index).toString();
+            String allInfo;
+
+            try {
+                allInfo = retrieveDevicesList(url, uriDeviceInfo);
+                retrieveData(allInfo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private void assignJob (JSONArray flow) {
+        //TODO: hardcode the job
+
+        int index;
+        int i = 0;
+        boolean pass = true;
+        int sensorRequest = 0;  // number of requested sensors we found
+
+
+        for (index = 0; index < deviceList.size(); index++) {
+            if (deviceList.get(index).get_alive().equals("true"))
+                i++;
+        }
+
+        if(numOfRequest > i) {
+            pass = false;
+        }
+
+        if (pass) {
+
+            for (i = 0;i < numOfRequest;i++) {
+
+                for (index = 0; index<deviceList.size(); index++) {
+                    if(requested_sensor.get(i).equals(deviceList.get(index).get_s_id().substring(3))){
+
+                        System.out.println("Sensor: "+requested_sensor.get(i)+" from "+deviceList.get(index).get_d_mac());
+
+                        available_sensor.add(i,deviceList.get(index).get_alive()+"/"+protocol_id+"/"+deviceList.get(index).get_d_mac()+"/"+deviceList.get(index).get_s_id());
+                        sensorRequest++;
+                        break;
+                    }
+                }
+            }
+
+            i = 0;
+
+            for (Object o : flow) {
+                JSONObject sensor = (JSONObject) o;
+                Boolean check = (Boolean) sensor.get("check");
+
+                if(check){
+                    String categoly = (String) sensor.get("categoly");
+                    if(available_sensor.get(i) != null){
+
+                        String[] names = available_sensor.get(i).split("/");
+
+
+                        //TODO: Change format - <protocol>://<ip_address>[<path_to_resource>]
+                        //tcp://192.168.0.1:1883/pub/1/000000000002/s_illuminance_0
+
+                        String topic = "/"+names[1]+"/"+names[2]+"/"+names[3];
+
+                        if (categoly.equals("input")) {
+                            if (names[0].equals(true)) {
+                                sensor.remove("deviceName");
+                            }
+                            sensor.put("deviceName", topic);
+                            System.out.println("use : "+topic);
+
+                        } else {
+                            sensor.remove("deviceName");
+                            sensor.put("deviceName", topic);
+                            System.out.println("use : "+topic);
+                        }
+
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
     public void stopRuleEngine(String sessionId) {
         System.out.println("[stopRuleEngine] function call");
         if (sessionId != null && !sessionId.equals("")) {
@@ -366,4 +432,6 @@ public class Mapper {
             System.out.println("[stopRuleEngine] not entry ");
         }
     }
+
+
 }
