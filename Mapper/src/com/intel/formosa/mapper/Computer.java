@@ -1,6 +1,5 @@
 package com.intel.formosa.mapper;
 
-import java.util.ArrayList;
 
 public class Computer {
 	private String IP;
@@ -9,7 +8,8 @@ public class Computer {
 	public Computer(String IP) {
 		this.IP = IP;
 	}
-	
+
+    /** Getter */
 	public String getIP() {
 		return IP;
 	}
@@ -17,8 +17,8 @@ public class Computer {
 	public String getTaskSessionId () {
 		return taskSessionId;
 	}
-	
-	
+
+    /** Setter */
 	public void setTaskSessionId (String sessionId) {
 		taskSessionId = sessionId;
 	}
