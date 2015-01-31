@@ -3,6 +3,7 @@ package com.intel.formosa.mapper;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.Socket;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import com.intel.formosa.params.FIConfigParams;
 import com.intel.formosa.test.Go;
 
 import org.apache.http.HttpResponse;
@@ -25,6 +27,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -50,8 +57,6 @@ public class Mapper {
 
     private String token;
 
-
-
     private ArrayList<String> requested_sensor = new ArrayList<String>();
     private ArrayList<String> available_sensor = new ArrayList<String>();
     private ArrayList<String> requested_actuator = new ArrayList<String>();
@@ -69,7 +74,8 @@ public class Mapper {
 
     private String hostIpAddress = "";
 
-    private String role = "master";
+    private static String host, role;
+    private boolean isWaiting = true;
 
     public Mapper() {
         try {
@@ -87,12 +93,65 @@ public class Mapper {
 
     public static void main (String[] args) throws Exception{
         JSONObject result;
+        
+        //TODO[Y]: Load config file to read the information of PC
+      	//TODO[Y]: Slave listen to the "broadcast alive request"
+       
+        File propertiesFile = new File("config.properties");
+        InputStream inputStream = new FileInputStream(propertiesFile);
+        Reader reader = new InputStreamReader(inputStream);
+        FIConfigParams config = new FIConfigParams();
+        Boolean isMasterRole;
+        
+        MqttClient mqttClient;
+        String mqttBroker = "tcp://localhost:1883";
+       
+		mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
+		MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        mqttClient.connect(connOpts);
+        
+        try{
+        	if(propertiesFile.exists()){
+                config.load(reader);
+                host = config.getParameter("host", "localhost");
+                role = config.getParameter("role", "slave");
+                
+                if(role.equals("slave")){
+                	//TODO:listen to broadcast
+                	subscribeAliveRequest(mqttClient);
+                }
+                
+            }
+            else{
+            	config.load(reader);
+            	host = getHostIpAddress();
+            	
+            	isMasterRole = isPortInUse(8080);
+            	if(isMasterRole){
+            		role = "master";
+            	}
+            	else{
+            		role = "salve";
+            		//TODO:listen to broadcast
+            		subscribeAliveRequest(mqttClient);
+            	}
+            	
+            	config.setParameter("host", host);
+            	config.setParameter("role", role);
+            	StringWriter strWriter = new StringWriter();
+            	config.store(strWriter, "config.properties");
+            }
+        }
+        catch (IOException e){
+        	e.printStackTrace();
+        }
+        
         Mapper mapper = new Mapper();
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
-        result =  mapper.run(jsonObj.toJSONString());
-
+        result =  mapper.run(jsonObj.toJSONString(), mqttClient);
         System.out.println(result);
 
     }
@@ -185,7 +244,7 @@ public class Mapper {
     }
 
     @SuppressWarnings("deprecation")
-    public JSONObject run (String jsonObjString) throws Exception {
+    public JSONObject run (String jsonObjString, MqttClient mqttClient) throws Exception {
 
         int num = 0;
         int i = 0;
@@ -219,23 +278,22 @@ public class Mapper {
             }
         }
 
+        
         /** get AC 1.1 authentication token */
         generateToken();
+        
 
-
-        //TODO 1: Call Mqtt to listen to discoverable topic. Store discovered pc into list
-        ArrayList<String> discover_list = new ArrayList<String>();
-        discover_list.add(gateway_ip);
-
+        
         //TODO 2: Identify role - will stored into list
-        //        String role = "master";	// remove it once TODO2 done. Declare as Class member variable
-
-
-        //TODO 3: Different process for master and slave
-
+      	//TODO 3: Different process for master and slave
         if (role.equals("master")) {
+            
+        	//TODO[Y]: Broadcast mqtt message to retrieve alive slave. 
+        	//TODO[Y]: Declare as Class member variable - Store discovered pc into list	
+        	broadcastAliveRequest(mqttClient);
+        	
             //TODO: Pass the list of discoverable device to generate available devices
-            generateAvailableDevices(discover_list);
+            generateAvailableDevices(availableworkers);
 
             //TODO: Master assign job
             assignJob(userInputJsonObj, sessionId);
@@ -270,39 +328,46 @@ public class Mapper {
                 userInputJsonObj.put("success", false);
             }
 
-        } else {
+        } else if (role.equals("slave")) {
             //TODO: Add while loop - waiting for job assigned -listen via http
             //TODO: Once received job, begin mapping
             //TODO: Return acknowledgement back to master
 
-            if (runnableInstance.containsKey(sessionId)) {
-                Go g = (Go) runnableInstance.get(sessionId);
-                g.setAliveFlag(false);
-                g = null;
-                runnableInstance.remove(sessionId);
-            }
+        	if(!isWaiting){
+	            if (runnableInstance.containsKey(sessionId)) {
+	                Go g = (Go) runnableInstance.get(sessionId);
+	                g.setAliveFlag(false);
+	                g = null;
+	                runnableInstance.remove(sessionId);
+	            }
+	
+	            Go go = new Go(flow, role, sessionId);
+	            Thread t1 = new Thread(go);
+	            t1.start();
+	            runnableInstance.put(sessionId, go);
+	            System.out.print("add " + sessionId + " to HashMap");
+	
+	            userInputJsonObj.put("success", true);
+        	}
 
-            Go go = new Go(flow, role, sessionId);
-            Thread t1 = new Thread(go);
-            t1.start();
-            runnableInstance.put(sessionId, go);
-            System.out.print("add " + sessionId + " to HashMap");
-
-            userInputJsonObj.put("success", true);
+	        userInputJsonObj.remove("type");
+	        userInputJsonObj.put("type", "resp");
+	
+	        flow.remove(0);
+	        System.out.println("@@@@@@");
+	        System.out.println(flow);
+	        System.out.println(userInputJsonObj.get("flow").toString());
+	        System.out.println("@@@@@@");
+	        
+	        mqttClient.disconnect();
+	        mqttClient.close();
         }
-
-        userInputJsonObj.remove("type");
-        userInputJsonObj.put("type", "resp");
-
-        flow.remove(0);
-        System.out.println("@@@@@@");
-        System.out.println(flow);
-        System.out.println(userInputJsonObj.get("flow").toString());
-        System.out.println("@@@@@@");
+        
         return userInputJsonObj;
+        
     }
 
-    private void retrieveData(String jsonArrayString) throws Exception {
+    private void retrieveData(String jsonArrayString, String gatewayIP) throws Exception {
 
         int counter = 0;
         boolean sensor_alive = false;
@@ -350,7 +415,7 @@ public class Mapper {
                         else
                             sensor_alive = false;
 
-                        Device device = new Device(deviceName ,sensor_name ,deviceMAC, sensor_identifier, sensor_alive);
+                        Device device = new Device(gatewayIP, deviceName ,sensor_name ,deviceMAC, sensor_identifier, sensor_alive);
                         deviceList.add(device);
 
                         counter++;
@@ -381,15 +446,15 @@ public class Mapper {
     }
 
 
-    private void generateAvailableDevices (ArrayList <String> ListOfDiscoverableDevice) throws Exception{
+    private void generateAvailableDevices (ArrayList <Computer> availableWorkers) throws Exception{
         //TODO: This function with parameter = discoverable array list
         //TODO: For Loop - loop the discoverable item to retrieve available sensor/actuator from each gateway
 
         int numOfPC = 2; //TODO: need to replace with size of array
         int index = 0;
 
-        for (index=0; index < ListOfDiscoverableDevice.size(); index++){
-            String url = "http://" + ListOfDiscoverableDevice.get(index).toString() + ":8080";
+        for (index=0; index < availableWorkers.size(); index++){
+            String url = "http://" + availableWorkers.get(index).toString() + ":8080";
             String allInfo;
 
             try {
@@ -398,7 +463,7 @@ public class Mapper {
                 /** debug use*/
 //                allInfo = retrieveDevicesList2();
 
-                retrieveData(allInfo);
+                retrieveData(allInfo, url);
                 System.out.println("allinfo: ");
                 System.out.println(allInfo);
             } catch (IOException e) {
@@ -412,14 +477,16 @@ public class Mapper {
 
         JSONArray flow = (JSONArray) userInputJsonObj.get("flow");
 
+        //TODO[Y] : Remove above hardcode and retreive the list of discoverable device.
+        
         /** TODO: hardcode the job */
         /** the Computers that are discovered */
-        availableworkers.add(new Computer("192.168.168.72"));
-        availableworkers.add(new Computer("192.168.11.132"));
-        availableworkers.add(new Computer("192.168.11.135"));
-        availableworkers.add(new Computer("192.168.11.137"));
+//        availableworkers.add(new Computer("192.168.168.72"));
+//        availableworkers.add(new Computer("192.168.11.132"));
+//        availableworkers.add(new Computer("192.168.11.135"));
+//        availableworkers.add(new Computer("192.168.11.137"));
 
-        System.out.println("beflore assgin: ");
+        System.out.println("before assgin: ");
         System.out.println(flow);
 
         int index;
@@ -543,7 +610,7 @@ public class Mapper {
         }
     }
 
-    public String getHostIpAddress() throws SocketException {
+    public static String getHostIpAddress() throws SocketException {
         /** get the host ip address */
         Enumeration<NetworkInterface> networkInterface = NetworkInterface.getNetworkInterfaces();
 
@@ -583,6 +650,89 @@ public class Mapper {
 //        System.out.println("adopt flow: " + adoptFlow);
 //        return adoptFlow;
 //    }
+    
+    public static boolean isPortInUse(int port){
+    	Socket socket;
+    	boolean isInUse;
+    	try{
+    		socket = new Socket(host, port);
+    		socket.close();
+    		isInUse = true;
+    	}
+    	catch(Exception e)
+    	{
+    		isInUse = false;
+    	}
+		
+    	return isInUse;
+    }
 
+    public static void broadcastAliveRequest(MqttClient mqttClient){
+		String broadcastTopic = "/ping/0/request";
+		String message ="Master requests the status of slave";
+    	try {
+	        int subQoS = 0;
+	        mqttClient.subscribe("#", subQoS);
+	        
+	        MqttMessage broadcastMessage = new MqttMessage(message.getBytes());
+	        broadcastMessage.setQos(1);
+	        mqttClient.publish(broadcastTopic, broadcastMessage);
+	         
+		} catch (MqttException e) {
+			e.printStackTrace();
+		}
+        
+    }
+    
+    public void messageArrived(MqttTopic topic, MqttMessage message) throws Exception {
+		
+		String topicDiscoverable = "/ping/0/";
+		String msgDiscoverable = "I am alive";
+		String topicAliveRequest = "/ping/0/request";
+		
+		if(topic.getName().contains(topicDiscoverable) && message.getPayload().toString().contains(msgDiscoverable)){
+			String ipAddress = topic.getName().replace(topicDiscoverable, "").trim();
+			availableworkers.add(new Computer(ipAddress));
+		}
+		
+		if(topic.getName().equals(topicAliveRequest)){
+			isWaiting = false;
+			publishAliveResponse(topicDiscoverable+getHostIpAddress(), msgDiscoverable);
+		}
+	}
+    
+    public static void subscribeAliveRequest(MqttClient mqttClient){
 
+		try {
+			String topicAliveRequest = "/ping/0/request";
+	        int subQoS = 0;
+	        mqttClient.subscribe(topicAliveRequest, subQoS); 
+	        
+		} catch (MqttException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+    }
+    
+    public static void publishAliveResponse(String topicAliveRequest, String messageDiscoverable){
+    	try {
+            MqttClient mqttClient;
+            String mqttBroker = "tcp://localhost:1883";
+           
+    		mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
+    		MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            mqttClient.connect(connOpts);
+            
+	        MqttMessage message = new MqttMessage(messageDiscoverable.getBytes());
+	        message.setQos(1);
+	        mqttClient.publish(topicAliveRequest, message);
+	        mqttClient.disconnect();
+	        mqttClient.close();
+		} catch (MqttException e) {
+			e.printStackTrace();
+		}
+        
+    }
 }
