@@ -318,6 +318,10 @@ public class Mapper implements MqttCallback {
                 String mqttBroker = config.getParameter("mqttBroker", "tcp://localhost:1883");
                 mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
             }
+
+            for (Computer c : availableworkers) {
+                c = null;
+            }
             availableworkers.clear();
             broadcastAliveRequest(mqttClient);
 
@@ -698,10 +702,14 @@ public class Mapper implements MqttCallback {
             mqttClient.publish(broadcastTopic, broadcastMessage);
 
             /** if is Mapper.run() is call first time, then wait 3 sec to get response from all slave */
-            if (isFirst) {
-                Thread.sleep(3000);
-                System.out.println("thread awake!");
-            }
+            /**
+             * If we clear the available list each time Mapper call the run()
+             * I maybe need to wait n second to get response message and store to available list
+             * */
+//            if (isFirst) {
+            Thread.sleep(3000);
+            System.out.println("thread awake!");
+//            }
 
         } catch (MqttException e) {
             e.printStackTrace();
