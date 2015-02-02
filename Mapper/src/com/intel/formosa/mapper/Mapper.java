@@ -117,10 +117,10 @@ public class Mapper implements MqttCallback {
 
     public static void main (String[] args) throws Exception{
         // ===========================test======================
-//        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
+        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
 //        initTaskOfRole();
 
-        startDiscoverable();
+//        startDiscoverable();
 // ===========================test======================
         JSONObject result;
 
@@ -788,11 +788,11 @@ public class Mapper implements MqttCallback {
                 /** if not "I am alive", message is either cpu or mem information */
 
                 /** regular expression. match example: "/ping/0/140.113.72.8/cpu" */
-                String patternStr = "/ping/0/[0-9]*\\.[0.9]*\\.[0-9]*\\.[0-9]*/[a-zA-Z]*";
+                String patternStr = "/ping/0/[0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*/[a-zA-Z]*";
                 Pattern pattern = Pattern.compile(patternStr);
                 Matcher matcher = pattern.matcher(topic);
                 boolean matchFound = matcher.find();
-
+                System.out.println("match:" + matchFound );
                 if (matchFound) {
                     String[] topicSplit = topic.split("/");
 
