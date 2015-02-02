@@ -1,9 +1,6 @@
 package com.intel.formosa.mapper;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 
@@ -16,7 +13,7 @@ import java.util.Enumeration;
 /**
  * Created by Maydaycha on 1/28/15.
  */
-public class Discoverable implements Runnable {
+public class Discoverable implements Runnable, MqttCallback {
 
     private MqttClient mqttClient;
     private Sigar sigar;
@@ -30,6 +27,9 @@ public class Discoverable implements Runnable {
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             mqttClient.connect(connOpts);
+            mqttClient.setCallback(this);
+
+            mqttClient.subscribe("#");
 
 
             /** get the host ip address */
@@ -65,23 +65,20 @@ public class Discoverable implements Runnable {
 
                 /** Continuously send the information of Hardware to broker */
                 sigar = new Sigar();
-                while (true) {
-                    sendMqttMessage(topicPrefix + "/cpu", sigar.getCpu().toString());
-                    System.out.println("CPU:" + sigar.getCpu());
-                    sendMqttMessage(topicPrefix + "/mem", sigar.getMem().toString());
-                    System.out.println("MEM:" + sigar.getMem());
-                    Thread.sleep(2000);
-                }
+//                while (true) {
+//                    sendMqttMessage(topicPrefix + "/cpu", sigar.getCpu().toString());
+//                    System.out.println("CPU:" + sigar.getCpu());
+//                    sendMqttMessage(topicPrefix + "/mem", sigar.getMem().toString());
+//                    System.out.println("MEM:" + sigar.getMem());
+//                    Thread.sleep(2000);
+//                    break;
+//                }
             }
 
 
         } catch (MqttException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (SigarException e) {
             e.printStackTrace();
         } catch (SocketException e) {
             e.printStackTrace();
@@ -95,5 +92,21 @@ public class Discoverable implements Runnable {
         MqttMessage mMessage = new MqttMessage(message.getBytes());
         mMessage.setQos(1);
         mqttClient.publish(topic, mMessage);
+    }
+
+    @Override
+    public void connectionLost(Throwable throwable) {
+
+    }
+
+    @Override
+    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+        System.out.println("[Discoverable] message arrive: " + mqttMessage);
+//        sendMqttMessage("/cpu", "123");
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
     }
 }

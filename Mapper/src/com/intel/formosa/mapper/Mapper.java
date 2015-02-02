@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import com.intel.formosa.params.FIConfigParams;
 import com.intel.formosa.test.Go;
 
 import org.apache.http.HttpResponse;
@@ -24,25 +23,19 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttTopic;
+import org.eclipse.paho.client.mqttv3.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
-public class Mapper {
+public class Mapper implements MqttCallback {
 
     private final String gateway_ip = "localhost";
     private final int gateway_port = 8080;
-    private final String gateway_url = "http://" + gateway_ip + ":" + gateway_port;
 
     private final String FIELD_USERNAME = "username";
     private final String FIELD_PASSWORD = "password";
@@ -77,61 +70,88 @@ public class Mapper {
     private static String host, role;
     private boolean isWaiting = true;
 
+    private MqttClient mqttClient;
+
+    private ConfigParams config;
+
+
+
     public Mapper() {
         try {
             hostIpAddress = getHostIpAddress();
+            config = new ConfigParams();
         } catch (SocketException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /** For Servlet use while bootstrapping
+     *  publish self information (cpu, mem)
+     * */
     public static void startDiscoverable () {
         new Thread(new Discoverable()).start();
     }
 
+    /** For Servlet using while bootstrapping
+     *  listening the Master broadcast aliveRequest topic, and response self IP address
+     * */
+    public static void initTaskOfRole () throws IOException, MqttException {
+        ConfigParams config = new ConfigParams();
+        /** User should configure slave by himself */
+        String role = config.getParameter("role", "master");
+        String mqttBroker = config.getParameter("mqttBroker", "tcp://localhost:1883");
+
+        if (role.equals("slave")) {
+            /** Slave subscribe the aliveRequest topic, waiting for Master broadcast */
+            new Thread(new SubscribeAliveRequest(mqttBroker)).start();
+        }
+    }
+
 
     public static void main (String[] args) throws Exception{
+        // ===========================test======================
+//        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
+//        initTaskOfRole();
+
+//        startDiscoverable();
+// ===========================test======================
         JSONObject result;
-        
+
         //TODO[Y]: Load config file to read the information of PC
-      	//TODO[Y]: Slave listen to the "broadcast alive request"
-       
-        File propertiesFile = new File("config.properties");
-        InputStream inputStream = new FileInputStream(propertiesFile);
-        Reader reader = new InputStreamReader(inputStream);
-        FIConfigParams config = new FIConfigParams();
-        Boolean isMasterRole;
-        
-        MqttClient mqttClient;
-        String mqttBroker = "tcp://localhost:1883";
-       
-		mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
-		MqttConnectOptions connOpts = new MqttConnectOptions();
-        connOpts.setCleanSession(true);
-        mqttClient.connect(connOpts);
-        
-        try{
-        	if(propertiesFile.exists()){
+        //TODO[Y]: Slave listen to the "broadcast alive request" [implement in initTaskOfRole()]
+
+//        ConfigParams config = new ConfigParams();
+//        FIConfigParams config = new FIConfigParams();
+//        Boolean isMasterRole;
+
+        /*
+        try {
+        	if (propertiesFile.exists()) {
+                InputStream inputStream = new FileInputStream(propertiesFile);
+                Reader reader = new InputStreamReader(inputStream);
                 config.load(reader);
                 host = config.getParameter("host", "localhost");
                 role = config.getParameter("role", "slave");
+                System.out.println("host: " + host);
+                System.out.println("role: " + role);
                 
-                if(role.equals("slave")){
+                if (role.equals("slave")) {
                 	//TODO:listen to broadcast
                 	subscribeAliveRequest(mqttClient);
                 }
                 
-            }
-            else{
-            	config.load(reader);
+            } else {
+                System.out.println("create file ");
+
             	host = getHostIpAddress();
             	
             	isMasterRole = isPortInUse(8080);
-            	if(isMasterRole){
+            	if (isMasterRole) {
             		role = "master";
-            	}
-            	else{
+            	} else {
             		role = "salve";
             		//TODO:listen to broadcast
             		subscribeAliveRequest(mqttClient);
@@ -139,19 +159,20 @@ public class Mapper {
             	
             	config.setParameter("host", host);
             	config.setParameter("role", role);
-            	StringWriter strWriter = new StringWriter();
-            	config.store(strWriter, "config.properties");
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("config.properties"), "utf-8"));
+                config.store(writer, "store");
+                writer.close();
             }
-        }
-        catch (IOException e){
+        } catch (IOException e){
         	e.printStackTrace();
         }
-        
+        */
+
         Mapper mapper = new Mapper();
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
-        result =  mapper.run(jsonObj.toJSONString(), mqttClient);
+        result =  mapper.run(jsonObj.toJSONString());
         System.out.println(result);
 
     }
@@ -198,7 +219,7 @@ public class Mapper {
     }
 
     /** Retrieve devices data via Amelia Creek 1.1 API */
-    public String retrieveDevicesList(String baseUrl, String path) throws IOException {
+    public String retrieveDevicesList (String baseUrl, String path) throws IOException {
         System.out.println("token: " + token);
         String strToken ="";
         String data ="";
@@ -244,7 +265,7 @@ public class Mapper {
     }
 
     @SuppressWarnings("deprecation")
-    public JSONObject run (String jsonObjString, MqttClient mqttClient) throws Exception {
+    public JSONObject run (String jsonObjString) throws Exception {
 
         int num = 0;
         int i = 0;
@@ -252,7 +273,6 @@ public class Mapper {
         boolean pass = true;
         int sensorRequest = 0;  // number of requested sensors we found
         String sessionId = null;
-
 
         /** clear the devices list find previously */
         requested_sensor.clear();
@@ -278,20 +298,25 @@ public class Mapper {
             }
         }
 
-        
-        /** get AC 1.1 authentication token */
-        generateToken();
-        
 
-        
+        /** get AC 1.1 authentication token */
+//        generateToken();
+
+
+
         //TODO 2: Identify role - will stored into list
-      	//TODO 3: Different process for master and slave
+        //TODO 3: Different process for master and slave
         if (role.equals("master")) {
-            
-        	//TODO[Y]: Broadcast mqtt message to retrieve alive slave. 
-        	//TODO[Y]: Declare as Class member variable - Store discovered pc into list	
-        	broadcastAliveRequest(mqttClient);
-        	
+
+            //TODO[Y]: Broadcast mqtt message to retrieve alive slave.
+            //TODO[Y]: Declare as Class member variable - Store discovered pc into list
+            if (mqttClient == null) {
+                String mqttBroker = config.getParameter("mqttBroker", "tcp://localhost:1883");
+                mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
+            }
+            availableworkers.clear();
+            broadcastAliveRequest(mqttClient);
+
             //TODO: Pass the list of discoverable device to generate available devices
             generateAvailableDevices(availableworkers);
 
@@ -333,38 +358,38 @@ public class Mapper {
             //TODO: Once received job, begin mapping
             //TODO: Return acknowledgement back to master
 
-        	if(!isWaiting){
-	            if (runnableInstance.containsKey(sessionId)) {
-	                Go g = (Go) runnableInstance.get(sessionId);
-	                g.setAliveFlag(false);
-	                g = null;
-	                runnableInstance.remove(sessionId);
-	            }
-	
-	            Go go = new Go(flow, role, sessionId);
-	            Thread t1 = new Thread(go);
-	            t1.start();
-	            runnableInstance.put(sessionId, go);
-	            System.out.print("add " + sessionId + " to HashMap");
-	
-	            userInputJsonObj.put("success", true);
-        	}
+//        	if (!isWaiting) {
+            if (runnableInstance.containsKey(sessionId)) {
+                Go g = (Go) runnableInstance.get(sessionId);
+                g.setAliveFlag(false);
+                g = null;
+                runnableInstance.remove(sessionId);
+            }
 
-	        userInputJsonObj.remove("type");
-	        userInputJsonObj.put("type", "resp");
-	
-	        flow.remove(0);
-	        System.out.println("@@@@@@");
-	        System.out.println(flow);
-	        System.out.println(userInputJsonObj.get("flow").toString());
-	        System.out.println("@@@@@@");
-	        
-	        mqttClient.disconnect();
-	        mqttClient.close();
+            Go go = new Go(flow, role, sessionId);
+            Thread t1 = new Thread(go);
+            t1.start();
+            runnableInstance.put(sessionId, go);
+            System.out.print("add " + sessionId + " to HashMap");
+
+            userInputJsonObj.put("success", true);
+//        	}
+
+            userInputJsonObj.remove("type");
+            userInputJsonObj.put("type", "resp");
+
+            flow.remove(0);
+            System.out.println("@@@@@@");
+            System.out.println(flow);
+            System.out.println(userInputJsonObj.get("flow").toString());
+            System.out.println("@@@@@@");
+
+            mqttClient.disconnect();
+            mqttClient.close();
         }
-        
+
         return userInputJsonObj;
-        
+
     }
 
     private void retrieveData(String jsonArrayString, String gatewayIP) throws Exception {
@@ -478,7 +503,7 @@ public class Mapper {
         JSONArray flow = (JSONArray) userInputJsonObj.get("flow");
 
         //TODO[Y] : Remove above hardcode and retreive the list of discoverable device.
-        
+
         /** TODO: hardcode the job */
         /** the Computers that are discovered */
 //        availableworkers.add(new Computer("192.168.168.72"));
@@ -636,103 +661,123 @@ public class Mapper {
         return hostIpAddress;
     }
 
-    /** Mapper only pass the flow that nodes are assigned to him */
-    /** maybe not use this function, comment it temporary */
-//    public JSONArray getAdpotFlow (JSONArray originFlow) {
-//        JSONArray adoptFlow = new JSONArray();
-//        for (Object o : originFlow) {
-//            JSONObject obj = (JSONObject) o;
-//            if (obj.get("runningHost").equals(hostIpAddress)) {
-//                adoptFlow.add(obj);
-//            }
-//        }
+    public static boolean isPortInUse (int port) {
+        Socket socket;
+        boolean isInUse;
+        try {
+            socket = new Socket(host, port);
+            socket.close();
+            isInUse = true;
+        } catch (Exception e) {
+            isInUse = false;
+        }
+        return isInUse;
+    }
+
+    public void broadcastAliveRequest(MqttClient mqttClient){
+        String broadcastTopic = "/ping/0/request";
+        String message ="Master requests the status of slave";
+
+        try {
+            if (!mqttClient.isConnected()) {
+                MqttConnectOptions connOpts = new MqttConnectOptions();
+                connOpts.setCleanSession(true);
+                mqttClient.connect(connOpts);
+                mqttClient.setCallback(this);
+            }
+
+            int subQoS = 0;
+            System.out.println("subscribe /ping/0/#");
+            mqttClient.subscribe("/ping/0/#", subQoS);
+
+            MqttMessage broadcastMessage = new MqttMessage(message.getBytes());
+            broadcastMessage.setQos(1);
+            mqttClient.publish(broadcastTopic, broadcastMessage);
+
+            /** Wait 3 sec to get response from all slave */
+            Thread.sleep(10000);
+            System.out.println("thrad awake!");
+            System.out.println("disconnect mqtt");
+
+            mqttClient.disconnect();
+
+        } catch (MqttException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+//    public static void subscribeAliveRequest (MqttClient mqttClient){
 //
-//        System.out.println("adopt flow: " + adoptFlow);
-//        return adoptFlow;
+//		try {
+//			String topicAliveRequest = "/ping/0/request";
+//	        int subQoS = 0;
+//	        mqttClient.subscribe(topicAliveRequest, subQoS);
+//
+//		} catch (MqttException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//
 //    }
-    
-    public static boolean isPortInUse(int port){
-    	Socket socket;
-    	boolean isInUse;
-    	try{
-    		socket = new Socket(host, port);
-    		socket.close();
-    		isInUse = true;
-    	}
-    	catch(Exception e)
-    	{
-    		isInUse = false;
-    	}
-		
-    	return isInUse;
+
+//    public static void publishAliveResponse (String topicAliveRequest, String messageDiscoverable) {
+//        try {
+//            MqttClient mqttClient;
+//            String mqttBroker = "tcp://localhost:1883";
+//
+//            mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
+//            MqttConnectOptions connOpts = new MqttConnectOptions();
+//            connOpts.setCleanSession(true);
+//            mqttClient.connect(connOpts);
+//
+//            MqttMessage message = new MqttMessage(messageDiscoverable.getBytes());
+//            message.setQos(1);
+//            mqttClient.publish(topicAliveRequest, message);
+//            mqttClient.disconnect();
+//            mqttClient.close();
+//        } catch (MqttException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+    @Override
+    public void connectionLost (Throwable throwable) {
+        System.out.println("Mqtt connection lost");
+
     }
 
-    public static void broadcastAliveRequest(MqttClient mqttClient){
-		String broadcastTopic = "/ping/0/request";
-		String message ="Master requests the status of slave";
-    	try {
-	        int subQoS = 0;
-	        mqttClient.subscribe("#", subQoS);
-	        
-	        MqttMessage broadcastMessage = new MqttMessage(message.getBytes());
-	        broadcastMessage.setQos(1);
-	        mqttClient.publish(broadcastTopic, broadcastMessage);
-	         
-		} catch (MqttException e) {
-			e.printStackTrace();
-		}
-        
-    }
-    
-    public void messageArrived(MqttTopic topic, MqttMessage message) throws Exception {
-		
-		String topicDiscoverable = "/ping/0/";
-		String msgDiscoverable = "I am alive";
-		String topicAliveRequest = "/ping/0/request";
-		
-		if(topic.getName().contains(topicDiscoverable) && message.getPayload().toString().contains(msgDiscoverable)){
-			String ipAddress = topic.getName().replace(topicDiscoverable, "").trim();
-			availableworkers.add(new Computer(ipAddress));
-		}
-		
-		if(topic.getName().equals(topicAliveRequest)){
-			isWaiting = false;
-			publishAliveResponse(topicDiscoverable+getHostIpAddress(), msgDiscoverable);
-		}
-	}
-    
-    public static void subscribeAliveRequest(MqttClient mqttClient){
+    /** Callback function: Use to assign alive computer to availableList */
+    @Override
+    public void messageArrived (String topic, MqttMessage mqttMessage) throws Exception {
+        System.out.println("[messageArrived] topic: " + topic + ", message: " + mqttMessage);
 
-		try {
-			String topicAliveRequest = "/ping/0/request";
-	        int subQoS = 0;
-	        mqttClient.subscribe(topicAliveRequest, subQoS); 
-	        
-		} catch (MqttException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+        String topicDiscoverable = "/ping/0/";
+        String msgDiscoverable = "I am alive";
+        String topicAliveRequest = "/ping/0/request";
+
+        if (topic.contains(topicDiscoverable) && mqttMessage.toString().contains(msgDiscoverable)) {
+            String ipAddress = topic.replace(topicDiscoverable, "").trim();
+            boolean exist = false;
+            for (Computer c : availableworkers) {
+                if (c.getIP().equals(ipAddress)) {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist) {
+                System.out.println("[messageArrived] Add computer to available list");
+                availableworkers.add(new Computer(ipAddress));
+            }
+        }
     }
-    
-    public static void publishAliveResponse(String topicAliveRequest, String messageDiscoverable){
-    	try {
-            MqttClient mqttClient;
-            String mqttBroker = "tcp://localhost:1883";
-           
-    		mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
-    		MqttConnectOptions connOpts = new MqttConnectOptions();
-            connOpts.setCleanSession(true);
-            mqttClient.connect(connOpts);
-            
-	        MqttMessage message = new MqttMessage(messageDiscoverable.getBytes());
-	        message.setQos(1);
-	        mqttClient.publish(topicAliveRequest, message);
-	        mqttClient.disconnect();
-	        mqttClient.close();
-		} catch (MqttException e) {
-			e.printStackTrace();
-		}
-        
+
+    @Override
+    public void deliveryComplete (IMqttDeliveryToken iMqttDeliveryToken) {
+
     }
 }
