@@ -479,11 +479,8 @@ public class Mapper implements MqttCallback {
         //TODO: This function with parameter = discoverable array list
         //TODO: For Loop - loop the discoverable item to retrieve available sensor/actuator from each gateway
 
-        int numOfPC = 2; //TODO: need to replace with size of array
-        int index = 0;
-
-        for (index=0; index < availableWorkers.size(); index++){
-            String url = "http://" + availableWorkers.get(index).toString() + ":8080";
+        for (Computer c : availableWorkers) {
+            String url = "http://" + c.getIp() + ":8080";
             String allInfo;
 
             try {
@@ -499,6 +496,7 @@ public class Mapper implements MqttCallback {
                 e.printStackTrace();
             }
         }
+
     }
 
 
