@@ -4,6 +4,7 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -16,6 +17,7 @@ import java.util.Enumeration;
 public class Discoverable implements Runnable, MqttCallback {
 
     private MqttClient mqttClient;
+//    private Sigar sigar;
     private Sigar sigar;
 
     private final String mqttBroker = "tcp://localhost:1883";
@@ -65,14 +67,14 @@ public class Discoverable implements Runnable, MqttCallback {
 
                 /** Continuously send the information of Hardware to broker */
                 sigar = new Sigar();
-//                while (true) {
-//                    sendMqttMessage(topicPrefix + "/cpu", sigar.getCpu().toString());
-//                    System.out.println("CPU:" + sigar.getCpu());
-//                    sendMqttMessage(topicPrefix + "/mem", sigar.getMem().toString());
-//                    System.out.println("MEM:" + sigar.getMem());
-//                    Thread.sleep(2000);
-//                    break;
-//                }
+                while (true) {
+                    sendMqttMessage(topicPrefix + "/cpu", "" + sigar.getCpu().getIdle());
+                    System.out.println("CPU idle:" + sigar.getCpu().getIdle());
+                    sendMqttMessage(topicPrefix + "/mem", "" + sigar.getMem().getFree());
+                    System.out.println("MEM free:" + sigar.getMem().getFree());
+                    Thread.sleep(2000);
+                    break;
+                }
             }
 
 
@@ -81,6 +83,12 @@ public class Discoverable implements Runnable, MqttCallback {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (SigarException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
