@@ -25,6 +25,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.eclipse.paho.client.mqttv3.*;
@@ -53,7 +54,8 @@ public class Mapper implements MqttCallback {
     private String token;
 
     private ArrayList<String> requested_sensor = new ArrayList<String>();
-    private ArrayList<String> available_sensor = new ArrayList<String>();
+//    private ArrayList<String> available_sensor = new ArrayList<String>();
+    private ArrayList<Device> available_sensor = new ArrayList<Device>();
     private ArrayList<String> requested_actuator = new ArrayList<String>();
 
     private long protocol_id = 0;
@@ -64,7 +66,7 @@ public class Mapper implements MqttCallback {
 
     private HashMap runnableInstance = new HashMap();
 
-    private ArrayList<Computer> availableworkers = new ArrayList<Computer>();
+    private ArrayList<Computer> availableWorkers = new ArrayList<Computer>();
     private ArrayList<Computer> selectedWorkers = new ArrayList<Computer>();
 
     private String hostIpAddress = "";
@@ -105,79 +107,32 @@ public class Mapper implements MqttCallback {
     public static void initTaskOfRole () throws IOException, MqttException {
         ConfigParams config = new ConfigParams();
         /** User should configure slave by himself */
-        String role = config.getParameter("role", "master");
+//        String role = config.getParameter("role", "master");
         String mqttBroker = config.getParameter("mqttBroker", "tcp://localhost:1883");
 
-        if (role.equals("slave")) {
-            /** Slave subscribe the aliveRequest topic, waiting for Master broadcast */
-            new Thread(new SubscribeAliveRequest(mqttBroker)).start();
-        }
+        /** Each computer may be master or slave, so all need to subscribe alive request */
+        new Thread(new SubscribeAliveRequest(mqttBroker)).start();
     }
 
 
     public static void main (String[] args) throws Exception{
-        // ===========================test======================
-        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
+    // ===========================test======================
+//        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
 //        initTaskOfRole();
 
 //        startDiscoverable();
-// ===========================test======================
+    // ===========================test======================
         JSONObject result;
 
         //TODO[Y]: Load config file to read the information of PC
         //TODO[Y]: Slave listen to the "broadcast alive request" [implement in initTaskOfRole()]
 
-//        ConfigParams config = new ConfigParams();
-//        FIConfigParams config = new FIConfigParams();
-//        Boolean isMasterRole;
-
-        /*
-        try {
-        	if (propertiesFile.exists()) {
-                InputStream inputStream = new FileInputStream(propertiesFile);
-                Reader reader = new InputStreamReader(inputStream);
-                config.load(reader);
-                host = config.getParameter("host", "localhost");
-                role = config.getParameter("role", "slave");
-                System.out.println("host: " + host);
-                System.out.println("role: " + role);
-                
-                if (role.equals("slave")) {
-                	//TODO:listen to broadcast
-                	subscribeAliveRequest(mqttClient);
-                }
-                
-            } else {
-                System.out.println("create file ");
-
-            	host = getHostIpAddress();
-            	
-            	isMasterRole = isPortInUse(8080);
-            	if (isMasterRole) {
-            		role = "master";
-            	} else {
-            		role = "salve";
-            		//TODO:listen to broadcast
-            		subscribeAliveRequest(mqttClient);
-            	}
-            	
-            	config.setParameter("host", host);
-            	config.setParameter("role", role);
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("config.properties"), "utf-8"));
-                config.store(writer, "store");
-                writer.close();
-            }
-        } catch (IOException e){
-        	e.printStackTrace();
-        }
-        */
-
-//        Mapper mapper = new Mapper();
-//        JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
+        Mapper mapper = new Mapper();
+        JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
-//        result =  mapper.run(jsonObj.toJSONString());
-//        System.out.println(result);
+        result =  mapper.run(jsonObj.toJSONString());
+        System.out.println(result);
 
     }
 
@@ -271,15 +226,16 @@ public class Mapper implements MqttCallback {
     @SuppressWarnings("deprecation")
     public JSONObject run (String jsonObjString) throws Exception {
 
-        int num = 0;
-        int i = 0;
-        int index = 0;
         boolean pass = true;
-        int sensorRequest = 0;  // number of requested sensors we found
+
         String sessionId = null;
 
         /** clear the devices list find previously */
         requested_sensor.clear();
+
+        for (Device d : available_sensor) {
+            d = null;
+        }
         available_sensor.clear();
 
 
@@ -289,6 +245,9 @@ public class Mapper implements MqttCallback {
         sessionId = userInputJsonObj.get("session_id").toString();
 
         JSONArray flow = (JSONArray) userInputJsonObj.get("flow");
+
+        Boolean isMaster = (Boolean) userInputJsonObj.get("is_master");
+
 
         /** Search for the requested sensor */
         for (Object o : flow) {
@@ -310,7 +269,7 @@ public class Mapper implements MqttCallback {
 
         //TODO 2: Identify role - will stored into list
         //TODO 3: Different process for master and slave
-        if (role.equals("master")) {
+        if (isMaster) {
 
             //TODO[Y]: Broadcast mqtt message to retrieve alive slave.
             //TODO[Y]: Declare as Class member variable - Store discovered pc into list
@@ -319,30 +278,33 @@ public class Mapper implements MqttCallback {
                 mqttClient = new MqttClient(mqttBroker, MqttClient.generateClientId());
             }
 
-            for (Computer c : availableworkers) {
+            for (Computer c : availableWorkers) {
                 c = null;
             }
-            availableworkers.clear();
-            broadcastAliveRequest(mqttClient);
+            availableWorkers.clear();
+//            broadcastAliveRequest(mqttClient);
+
+
+            /** the Computers that are discovered */
+            availableWorkers.add(new Computer("192.168.168.72"));
 
             //TODO: Pass the list of discoverable device to generate available devices
-            generateAvailableDevices(availableworkers);
+            generateAvailableDevices(availableWorkers);
 
             //TODO: Master assign job
             assignJob(userInputJsonObj, sessionId);
 
-            System.out.println("flow after assign : ");
-            System.out.println(flow);
+            System.out.println("userInputJsonObj after assign : ");
+            System.out.println(userInputJsonObj);
             System.out.println("@@@@");
 
             //TODO [finish but not test]: Create while loop - waiting for acknowledgement from slave
 
             //TODO: Run rule-engine after receive all acknowledgement
-            System.out.println(sensorRequest + " : " + numOfRequest);
 
             System.out.println(flow);
 
-            if(sensorRequest == numOfRequest) { //success
+            if(available_sensor.size() == requested_sensor.size()) { //success
                 if (runnableInstance.containsKey(sessionId)) {
                     Go g = (Go) runnableInstance.get(sessionId);
                     g.setAliveFlag(false);
@@ -350,23 +312,22 @@ public class Mapper implements MqttCallback {
                     runnableInstance.remove(sessionId);
                 }
 
-                Go go = new Go(flow, role, sessionId);
+                Go go = new Go(flow, isMaster, sessionId);
                 Thread t1 = new Thread(go);
                 t1.start();
                 runnableInstance.put(sessionId, go);
-                System.out.print("add " + sessionId + " to HashMap");
+                System.out.println("Add " + sessionId + " to HashMap");
 
                 userInputJsonObj.put("success", true);
             } else {
                 userInputJsonObj.put("success", false);
             }
 
-        } else if (role.equals("slave")) {
+        } else {
             //TODO: Add while loop - waiting for job assigned -listen via http
             //TODO: Once received job, begin mapping
             //TODO: Return acknowledgement back to master
 
-//        	if (!isWaiting) {
             if (runnableInstance.containsKey(sessionId)) {
                 Go g = (Go) runnableInstance.get(sessionId);
                 g.setAliveFlag(false);
@@ -374,27 +335,22 @@ public class Mapper implements MqttCallback {
                 runnableInstance.remove(sessionId);
             }
 
-            Go go = new Go(flow, role, sessionId);
+            Go go = new Go(flow, isMaster, sessionId);
             Thread t1 = new Thread(go);
             t1.start();
             runnableInstance.put(sessionId, go);
             System.out.print("add " + sessionId + " to HashMap");
 
             userInputJsonObj.put("success", true);
-//        	}
+
 
             userInputJsonObj.remove("type");
             userInputJsonObj.put("type", "resp");
 
-            flow.remove(0);
-            System.out.println("@@@@@@");
-            System.out.println(flow);
-            System.out.println(userInputJsonObj.get("flow").toString());
-            System.out.println("@@@@@@");
-
-//            mqttClient.disconnect();
-//            mqttClient.close();
         }
+
+        System.out.println("final userInputJsonObj: ");
+        System.out.println(userInputJsonObj);
 
         return userInputJsonObj;
 
@@ -402,11 +358,9 @@ public class Mapper implements MqttCallback {
 
     private void retrieveData (String jsonArrayString, String gatewayIP) throws Exception {
 
-        int counter = 0;
-        boolean sensor_alive = false;
+        boolean sensor_alive;
 
         JSONArray objDevices = (JSONArray) new JSONParser().parse(jsonArrayString);
-
 
         for (Object first_child : objDevices)
         {
@@ -451,29 +405,8 @@ public class Mapper implements MqttCallback {
                         Device device = new Device(gatewayIP, deviceName ,sensor_name ,deviceMAC, sensor_identifier, sensor_alive);
                         deviceList.add(device);
 
-                        counter++;
                     }
                 }
-            }
-        }
-
-        counter = 0;
-        // Search requested sensors/actuators from the list of available devices
-
-        System.out.println("deviceList: " + deviceList);
-        System.out.println("available_sensor: " + available_sensor);
-        int compare = deviceList.size() >= available_sensor.size() ? available_sensor.size() : deviceList.size();
-        System.out.println("compare: " + compare);
-        for (int index =0; index < compare; index ++) {
-            String deviceType = deviceList.get(index).get_s_id();
-            //Boolean deviceStatus = deviceList.get(index).get_alive();
-            System.out.println("###########");
-            System.out.println(deviceType + " : " + requested_sensor.get(index));
-            System.out.println("###########");
-            if (deviceType.equals(requested_sensor.get(index))) {
-                available_sensor.add(counter,deviceList.get(index).get_s_id());
-                counter++;
-                break;
             }
         }
     }
@@ -484,18 +417,20 @@ public class Mapper implements MqttCallback {
         //TODO: For Loop - loop the discoverable item to retrieve available sensor/actuator from each gateway
 
         for (Computer c : availableWorkers) {
+
             String url = "http://" + c.getIp() + ":8080";
             String allInfo;
 
             try {
-                allInfo = retrieveDevicesList(url, uriDeviceInfo);
+//                allInfo = retrieveDevicesList(url, uriDeviceInfo);
 
                 /** debug use*/
-//                allInfo = retrieveDevicesList2();
+                allInfo = retrieveDevicesList2();
 
-                retrieveData(allInfo, url);
                 System.out.println("allinfo: ");
                 System.out.println(allInfo);
+
+                retrieveData(allInfo, c.getIp());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -508,22 +443,12 @@ public class Mapper implements MqttCallback {
 
         JSONArray flow = (JSONArray) userInputJsonObj.get("flow");
 
-        //TODO[Y] : Remove above hardcode and retreive the list of discoverable device.
-
-        /** TODO: hardcode the job */
-        /** the Computers that are discovered */
-//        availableworkers.add(new Computer("192.168.168.72"));
-//        availableworkers.add(new Computer("192.168.11.132"));
-//        availableworkers.add(new Computer("192.168.11.135"));
-//        availableworkers.add(new Computer("192.168.11.137"));
-
         System.out.println("before assgin: ");
         System.out.println(flow);
 
         int index;
         int i = 0;
         boolean pass = true;
-        int sensorRequest = 0;  // number of requested sensors we found
 
         for (index = 0; index < deviceList.size(); index++) {
             System.out.println("alive: " + deviceList.get(index).get_alive());
@@ -533,17 +458,16 @@ public class Mapper implements MqttCallback {
             }
         }
 
-
         if (pass) {
             for (i = 0; i < requested_sensor.size(); i++) {
+
                 for (index = 0; index < deviceList.size(); index++) {
 
                     if (requested_sensor.get(i).equals(deviceList.get(index).get_s_id().substring(3))) {
 
-                        System.out.println("Sensor: "+requested_sensor.get(i)+" from "+deviceList.get(index).get_d_mac());
+                        System.out.println("Sensor: "+requested_sensor.get(i)+" from "+ deviceList.get(index).get_d_mac());
 
-                        available_sensor.add(i,deviceList.get(index).get_alive()+"/"+protocol_id+"/"+deviceList.get(index).get_d_mac()+"/"+deviceList.get(index).get_s_id());
-                        sensorRequest++;
+                        available_sensor.add(i, deviceList.get(index));
                         break;
                     }
                 }
@@ -562,26 +486,25 @@ public class Mapper implements MqttCallback {
 
                     if (available_sensor.get(i) != null) {
 
-                        String[] names = available_sensor.get(i).split("/");
+                        Device device = available_sensor.get(i);
 
-                        //TODO: Change format - <protocol>://<ip_address>[<path_to_resource>]
-                        //tcp://192.168.0.1:1883/pub/1/000000000002/s_illuminance_0
-                        //                        int randomNumber = new Random().nextInt(availableComputingDevice.length);
-                        String topic = "/tcp://" + hostIpAddress + ":1883" + "/" + names[1] + "/" + names[2] + "/" + names[3];
+                        System.out.println("sensor" + i + ": " + available_sensor.get(i).get_s_name());
+
+                        // TODO: Change format - <protocol>://<ip_address>[<path_to_resource>]
+                        // tcp://192.168.0.1:1883/pub/1/000000000002/s_illuminance_0
+                        String topic = "tcp://" + device.get_gatewayIP() + ":1883" + "/pub/1/" + device.get_d_mac() + "/" + device.get_s_id();
 
                         if (category.equals("input")) {
-                            if (names[0].equals(true)) {
+                            if (device.get_alive()) {
                                 sensor.remove("deviceName");
                             }
                             sensor.put("deviceName", topic);
-                            System.out.println("use : "+topic);
-
                         } else {
                             sensor.remove("deviceName");
                             sensor.put("deviceName", topic);
-                            System.out.println("use : "+topic);
                         }
 
+                        System.out.println("use : "+topic);
 
                         i++;
                     }
@@ -589,27 +512,37 @@ public class Mapper implements MqttCallback {
 
                 /** Assign the job to workers */
                 // TODO: Need to apply selection mechanism
-                int randomNumber = new Random().nextInt(availableworkers.size());
-                Computer computer = availableworkers.get(randomNumber);
+                int randomNumber = new Random().nextInt(availableWorkers.size());
+                Computer computer = availableWorkers.get(randomNumber);
                 computer.setTaskSessionId(sessionId);
                 sensor.remove("runningHost");
                 sensor.put("runningHost", computer.getIp());
                 selectedWorkers.add(computer);
 
             }
+            userInputJsonObj.remove("is_master");
+            userInputJsonObj.put("is_master", false);
 
-            /** Ask selected worker to start working */
+
+            /** Ask selected workers to start working, expect self */
             /** uncomment this when you have multiple computers */
-//            for (Computer c: selectedWorkers) {
-//                HttpClient client = new DefaultHttpClient();
-//                HttpPost post = new HttpPost("http://" + c.getIp() + "8081/Mapper-Servlet/Mappers");
-//                StringEntity params = new StringEntity(userInputJsonObj.toJSONString());
-//
-//                post.addHeader("content-type", "application/x-www-form-urlencoded");
-//                post.setEntity(params);
-//
-//                HttpResponse response = client.execute(post);
-//            }
+            for (Computer c: selectedWorkers) {
+                /** If the selected worker is not myself, fire it the work */
+                if (!c.getIp().equals(hostIpAddress)) {
+                    HttpClient client = new DefaultHttpClient();
+                    HttpPost post = new HttpPost("http://" + c.getIp() + "8081/Mapper-Servlet/Mappers");
+                    StringEntity params = new StringEntity(userInputJsonObj.toJSONString());
+
+                    post.addHeader("content-type", "application/x-www-form-urlencoded");
+                    post.setEntity(params);
+
+                    HttpResponse response = client.execute(post);
+                }
+            }
+
+            /** set is_master back to true */
+            userInputJsonObj.remove("is_master");
+            userInputJsonObj.put("is_master", true);
         }
     }
 
@@ -771,10 +704,14 @@ public class Mapper implements MqttCallback {
         String topicAliveRequest = "/ping/0/request";
 
         if (topic.contains(topicDiscoverable)) {
+
+            /** the response of aliveRequest */
             if (mqttMessage.toString().contains(msgDiscoverable)) {
                 String ipAddress = topic.replace(topicDiscoverable, "").trim();
+
+                /** Check if the computer is already in availableWorkers list */
                 boolean exist = false;
-                for (Computer c : availableworkers) {
+                for (Computer c : availableWorkers) {
                     if (c.getIp().equals(ipAddress)) {
                         exist = true;
                         break;
@@ -782,12 +719,12 @@ public class Mapper implements MqttCallback {
                 }
                 if (!exist) {
                     System.out.println("[messageArrived] Add computer to available list");
-                    availableworkers.add(new Computer(ipAddress));
+                    availableWorkers.add(new Computer(ipAddress));
                 }
             } else {
-                /** if not "I am alive", message is either cpu or mem information */
+                /** If not "I am alive", message is either cpu or mem information */
 
-                /** regular expression. match example: "/ping/0/140.113.72.8/cpu" */
+                /** Regular expression. match example: "/ping/0/140.113.72.8/cpu" */
                 String patternStr = "/ping/0/[0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*/[a-zA-Z]*";
                 Pattern pattern = Pattern.compile(patternStr);
                 Matcher matcher = pattern.matcher(topic);
@@ -796,7 +733,7 @@ public class Mapper implements MqttCallback {
                 if (matchFound) {
                     String[] topicSplit = topic.split("/");
 
-                    for (Computer c : availableworkers) {
+                    for (Computer c : availableWorkers) {
                         if (c.getIp().equals(topicSplit[3])) {
                             String type = topicSplit[4].toLowerCase();
 
