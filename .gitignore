@@ -6,3 +6,4 @@ Servlet/.idea/*
 Mapper/out/*
 Mapper/bin/*
 Servlet/*.war
+Servlet/*.iml
