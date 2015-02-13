@@ -21,14 +21,13 @@ class MappersController {
 
     def save () {
 
-        JSONObject jsonObject = (JSONObject) request.JSON
+        JSONObject jsonObject = (JSONObject)request.JSON
 
         if (mapper == null) {
             mapper = new Mapper()
         }
 
         log.info("call run!")
-
         JSONObject result = mapper.run(jsonObject.toJSONString())
 
 //        JSONObject result = mapper.run1(jsonObject.toJSONString())
@@ -54,29 +53,5 @@ class MappersController {
         }
     }
 
-
-
-
-
-
-
-
-    public class MyRunnalbe implements Runnable {
-        private boolean flag;
-        MyRunnalbe(boolean flag) {
-            this.flag = flag;
-        }
-        @Override
-        void run() {
-            while (flag) {
-                print "I am thread: " + Thread.currentThread().getId()
-                sleep(1000)
-            }
-        }
-
-        public setFlag(boolean flag) {
-            this.flag = flag;
-        }
-    }
 }
 
