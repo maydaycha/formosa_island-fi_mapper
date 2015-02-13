@@ -2,9 +2,6 @@ package com.intel.formosa
 
 import com.intel.formosa.mapper.Mapper
 import grails.converters.JSON
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.DefaultHttpClient
 import org.json.simple.JSONObject
 
 
@@ -23,12 +20,8 @@ class MappersController {
 
 
     def save () {
-        JSONObject jsonObject = (JSONObject)request.JSON
 
-
-
-        //TODO: call test
-//        com.intel.formosa.test.Main test = new com.intel.formosa.test.Main()
+        JSONObject jsonObject = (JSONObject) request.JSON
 
         if (mapper == null) {
             mapper = new Mapper()
@@ -39,19 +32,6 @@ class MappersController {
         JSONObject result = mapper.run(jsonObject.toJSONString())
 
 //        JSONObject result = mapper.run1(jsonObject.toJSONString())
-
-//        JSONObject result = jsonObject
-//        result.session_id == null ? "1234" : result.session_id
-//
-//        if (result.action == "delete") {
-//            MyRunnalbe myRunnalbe = threadPool.get(result.session_id);
-//            myRunnalbe.setFlag(false);
-//        } else {
-//            MyRunnalbe myrunnable = new MyRunnalbe(true);
-//            Thread t = new Thread(myrunnable)
-//            t.start()
-//            threadPool.put(result.session_id, myrunnable)
-//        }
 
         render result as JSON
     }

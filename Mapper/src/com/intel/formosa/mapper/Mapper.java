@@ -127,9 +127,13 @@ public class Mapper implements MqttCallback {
 
         Mapper mapper = new Mapper();
         JSONObject jsonObj = (JSONObject) new JSONParser().parse(new FileReader("input.json"));
+        JSONObject jsonObj2 = (JSONObject) new JSONParser().parse(new FileReader("input2.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
         result =  mapper.run(jsonObj.toJSONString());
+
+        mapper.run(jsonObj2.toJSONString());
+
         System.out.println(result);
 
     }
@@ -289,13 +293,13 @@ public class Mapper implements MqttCallback {
 
             System.out.println("userInputJsonObj after assign : ");
             System.out.println(userInputJsonObj);
-            System.out.println("@@@@");
-
+            System.out.println("---------------------------------");
 
             System.out.println(flow);
 
-            if(available_sensor.size() == requested_sensor.size()) { //success
+            if (available_sensor.size() == requested_sensor.size()) { //success
                 if (runnableInstance.containsKey(sessionId)) {
+                    System.out.println("remove flow: " + sessionId);
                     Go g = (Go) runnableInstance.get(sessionId);
                     g.setAliveFlag(false);
                     g = null;
@@ -308,8 +312,10 @@ public class Mapper implements MqttCallback {
                     }
                 }
 
+                System.out.println("acList size: " + acList.size());
+
                 for (int j = 0; j < acList.size() - 1; j++) {
-                    if (acList.get(j+1) != null) {
+                    if (acList.get(j + 1) != null) {
                         if (acList.get(j).get(0).equals(acList.get(j + 1).get(0))) {
                             System.out.println("monitor");
                             Monitor monitor = new Monitor (acList.get(j).get(0));
