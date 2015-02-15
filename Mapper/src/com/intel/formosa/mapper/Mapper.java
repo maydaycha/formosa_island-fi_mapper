@@ -95,20 +95,14 @@ public class Mapper implements MqttCallback {
     }
 
     /** For Servlet use while bootstrapping
-     *  publish self information (cpu, mem)
+     *  1. publish self information (cpu, mem)
+     *  2. listening the Master broadcast aliveRequest topic, and response self IP address
      * */
-    public static void startDiscoverable () {
-        new Thread(new Discoverable()).start();
-    }
-
-    /** For Servlet using while bootstrapping
-     *  listening the Master broadcast aliveRequest topic, and response self IP address
-     * */
-    public static void initTaskOfRole () throws IOException, MqttException {
+    public static void startDiscoverable () throws IOException, MqttException {
         ConfigParams config = new ConfigParams();
-        /** User should configure slave by himself */
-//        String role = config.getParameter("role", "master");
         String mqttBroker = config.getParameter("mqttBroker", "tcp://localhost:1883");
+
+        new Thread(new Discoverable(mqttBroker)).start();
 
         /** Each computer may be master or slave, so all need to subscribe alive request */
         new Thread(new SubscribeAliveRequest(mqttBroker)).start();
@@ -118,9 +112,8 @@ public class Mapper implements MqttCallback {
     public static void main (String[] args) throws Exception{
     // ===========================test======================
 //        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
-        initTaskOfRole();
 
-//        startDiscoverable();
+        startDiscoverable();
     // ===========================test======================
         JSONObject result;
 

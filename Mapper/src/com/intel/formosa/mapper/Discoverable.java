@@ -14,13 +14,16 @@ import java.util.Enumeration;
 /**
  * Created by Maydaycha on 1/28/15.
  */
-public class Discoverable implements Runnable, MqttCallback {
+public class Discoverable implements Runnable {
 
     private MqttClient mqttClient;
-//    private Sigar sigar;
     private Sigar sigar;
 
-    private final String mqttBroker = "tcp://localhost:1883";
+    private String mqttBroker;
+
+    public Discoverable (String mqttBroker) {
+        this.mqttBroker = mqttBroker;
+    }
 
     @Override
     public void run() {
@@ -29,10 +32,6 @@ public class Discoverable implements Runnable, MqttCallback {
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
             mqttClient.connect(connOpts);
-            mqttClient.setCallback(this);
-
-            mqttClient.subscribe("#");
-
 
             /** get the host ip address */
 
@@ -57,27 +56,21 @@ public class Discoverable implements Runnable, MqttCallback {
                 }
             }
 
-            String topic = "/ping/0/" + hostIpAddress;
-            String message = "I am alive";
             String topicPrefix = "/pub/0/" + hostIpAddress;
 
             if (!hostIpAddress.equals("")) {
-                /** send first message to info Master that you slave is alive */
-                sendMqttMessage(topic, message);
 
                 /** Continuously send the information of Hardware to mqttBroker */
                 sigar = new Sigar();
+
                 while (true) {
                     sendMqttMessage(topicPrefix + "/cpu", "" + sigar.getCpu().getIdle());
                     System.out.println("CPU idle:" + sigar.getCpu().getIdle());
                     sendMqttMessage(topicPrefix + "/mem", "" + sigar.getMem().getFree());
                     System.out.println("MEM free:" + sigar.getMem().getFree());
                     Thread.sleep(2000);
-                    break;
                 }
             }
-
-
         } catch (MqttException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -102,19 +95,4 @@ public class Discoverable implements Runnable, MqttCallback {
         mqttClient.publish(topic, mMessage);
     }
 
-    @Override
-    public void connectionLost(Throwable throwable) {
-
-    }
-
-    @Override
-    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        System.out.println("[Discoverable] message arrive: " + mqttMessage);
-//        sendMqttMessage("/cpu", "123");
-    }
-
-    @Override
-    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
-    }
 }
