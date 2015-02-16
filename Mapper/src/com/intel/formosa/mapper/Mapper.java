@@ -1,5 +1,6 @@
 package com.intel.formosa.mapper;
 
+import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -111,9 +112,12 @@ public class Mapper implements MqttCallback {
 
     public static void main (String[] args) throws Exception{
     // ===========================test======================
-//        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
+//        startDiscoverable();
 
-        startDiscoverable();
+        Thread.sleep(3000);
+
+        new Mapper().broadcastAliveRequest(new MqttClient("tcp://localhost:1883", MqttClient.generateClientId()));
+
     // ===========================test======================
         JSONObject result;
 
@@ -123,9 +127,11 @@ public class Mapper implements MqttCallback {
         JSONObject jsonObj2 = (JSONObject) new JSONParser().parse(new FileReader("input2.json"));
 
         /** the parameter of run() should be the JSON string passed from Web */
-        result =  mapper.run(jsonObj.toJSONString());
+//        result =  mapper.run(jsonObj.toJSONString());
 
-        mapper.run(jsonObj2.toJSONString());
+//        mapper.run(jsonObj2.toJSONString());
+
+        result = mapper.run1(jsonObj.toJSONString());
 
         System.out.println(result);
 
@@ -696,13 +702,12 @@ public class Mapper implements MqttCallback {
 
         String topicDiscoverable = "/ping/0/";
         String msgDiscoverable = "I am alive";
-        String topicAliveRequest = "/ping/0/request";
 
         if (topic.contains(topicDiscoverable)) {
 
             /** the response of aliveRequest */
             if (mqttMessage.toString().contains(msgDiscoverable)) {
-                String ipAddress = topic.replace(topicDiscoverable, "").trim();
+                String ipAddress = topic.replace(topicDiscoverable, "").replaceAll("/", "").trim();
 
                 /** Check if the computer is already in availableWorkers list */
                 boolean exist = false;
@@ -740,7 +745,6 @@ public class Mapper implements MqttCallback {
 
                         }
                     }
-
                 }
             }
 
